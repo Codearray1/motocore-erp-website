@@ -13,26 +13,53 @@ export default function Contact() {
   
   const [isSent, setIsSent] = useState(false);
   const [errorMess, setErrorMess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMess("");
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setErrorMess("");
+  setIsLoading(true);
 
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim()) {
-      setErrorMess("Please fill out all required fields (Name, Email, and Phone).");
-      return;
+  if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim()) {
+    setErrorMess("Please fill out all required fields (Name, Email, and Phone).");
+    setIsLoading(false);
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.email)) {
+    setErrorMess("Please provide a valid business email address.");
+    setIsLoading(false);
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send inquiry.");
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setErrorMess("Please provide a valid business email address.");
-      return;
-    }
-
-    // Mock inquiry success confirmation
     setIsSent(true);
-    setFormData({ name: "", email: "", phone: "", companySize: "dealership", message: "" });
-  };
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      companySize: "dealership",
+      message: "",
+    });
+  } catch (error) {
+    setErrorMess("Your inquiry could not be submitted. Please email us directly at motocorenepal@gmail.com.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <section id="contact" className="py-24 md:py-32 bg-[var(--bg)] text-[var(--text)] scroll-mt-10">
@@ -64,8 +91,8 @@ export default function Contact() {
                 </div>
                 <div className="text-left">
                   <p className="text-[10px] uppercase font-bold text-[var(--text)] opacity-50">EMAIL SUPPORT</p>
-                  <a href="mailto:motocorpnepal@gmail.com" className="text-sm md:text-base font-bold text-[var(--text)] hover:text-brand-red transition-colors">
-                    motocorpnepal@gmail.com
+                  <a href="mailto:motocorenepal@gmail.com" className="text-sm md:text-base font-bold text-[var(--text)] hover:text-brand-red transition-colors">
+                    motocorenepal@gmail.com
                   </a>
                 </div>
               </div>
@@ -204,7 +231,7 @@ export default function Contact() {
                     type="submit"
                     className="w-full inline-flex items-center justify-center bg-brand-red hover:bg-[#C20510] text-white text-sm font-bold uppercase tracking-wider py-4 rounded-xl transition-all shadow-lg shadow-brand-red/25 active:scale-95 cursor-pointer"
                   >
-                    <span>Send Inquiry Message</span>
+                    <span>{isLoading ? "Submitting..." : "Send Inquiry Message"}</span>
                     <Send className="ml-2.5 h-4 w-4" />
                   </button>
                 </motion.form>
@@ -221,10 +248,10 @@ export default function Contact() {
                   
                   <div className="space-y-2">
                     <h3 className="text-xl md:text-2xl font-bold font-display text-[var(--text)]">
-                      Inquiry Received Successfully!
+                      Your Inquiry Has Been Submitted Successfully
                     </h3>
                     <p className="text-sm text-[var(--text)] opacity-70 max-w-sm mx-auto leading-relaxed">
-                      Thank you! Our Kathmandu-Lalitpur regional success representative will catalog your details and reach out to you within 12 business hours.
+                      Thank you for your message and interest in MotoCore ERP. Our team has received your inquiry and will get back to you within 12 business hours.
                     </p>
                   </div>
 
