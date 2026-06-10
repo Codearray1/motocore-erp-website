@@ -30,12 +30,12 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)]">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+     <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-between">
         {/* LOGO: Pure high-precision vector SVG replacing broken external image URL */}
         <div className="flex items-center">
           <a href="#" className="flex items-center" onClick={(e) => handleLinkClick(e, "#top")} aria-label="MotoCore ERP Homepage">
             <div className="transition-transform hover:scale-102 flex items-center">
-              <Logo className="h-12 md:h-14 w-auto object-contain" />
+              <Logo className="h-24 md:h-28 w-auto object-contain" />
             </div>
           </a>
         </div>
@@ -112,7 +112,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-0 w-full bg-[var(--bg)] border-b border-[var(--border)] py-6 px-6 shadow-xl transition-all duration-300 ease-in-out">
+        <div className="lg:hidden absolute top-28 left-0 w-full bg-[var(--bg)] border-b border-[var(--border)] py-6 px-6 shadow-xl transition-all duration-300 ease-in-out">
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <a
