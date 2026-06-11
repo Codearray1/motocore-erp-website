@@ -13,19 +13,35 @@ export function EarlyAccessModal({ isOpen, onClose }: EarlyAccessModalProps) {
   const [submitted, setSubmitted] = useState(false);
   const [errorMess, setErrorMess] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMess("");
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.trim() || !regex.test(email)) {
-      setErrorMess("Please enter a valid business email address.");
-      return;
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "Get Early Access Lead",
+        email: email,
+        phone: "Not provided",
+        companySize: "Get Early Access",
+        message: "User submitted the Get Early Access popup form.",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to submit");
     }
 
-    localStorage.setItem("motocore_early_access_email", email);
+    localStorage.setItem("motocore_launch_email", email);
     setSubmitted(true);
-  };
+  } catch (error) {
+    console.error("GET EARLY ACCESS ERROR:", error);
+    alert("Could not submit your request. Please email us directly at motocorenepal@gmail.com");
+  }
+};
 
   return (
     <AnimatePresence>
