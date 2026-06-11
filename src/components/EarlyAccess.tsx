@@ -6,6 +6,7 @@ export default function EarlyAccess() {
   const [email, setEmail] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMess, setErrorMess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [ticketNum, setTicketNum] = useState<number>(0);
 
   // Check if user is already registered locally
@@ -21,16 +22,19 @@ export default function EarlyAccess() {
   const handleRegister = async (e: React.FormEvent) => {
   e.preventDefault();
   setErrorMess("");
+  setIsSubmitting(true);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!email.trim()) {
     setErrorMess("Business email is required.");
+    setIsSubmitting(false);
     return;
   }
 
   if (!emailRegex.test(email)) {
     setErrorMess("Please enter a valid business email address.");
+    setIsSubmitting(false);
     return;
   }
 
@@ -42,16 +46,18 @@ export default function EarlyAccess() {
       },
       body: JSON.stringify({
         name: "Early Access Lead",
-        email: email,
+        email,
         phone: "Not provided",
         companySize: "Early Access",
         message:
-          "User requested early access from the MotoCore ERP priority launch section.",
+          "User clicked Notify Me and requested early access from the MotoCore ERP priority launch section.",
       }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed");
+      const errorText = await response.text();
+      console.error("Early access API failed:", errorText);
+      throw new Error("Failed to submit early access request.");
     }
 
     localStorage.setItem("motocore_early_access_email", email);
@@ -61,9 +67,12 @@ export default function EarlyAccess() {
     setIsRegistered(true);
     setEmail("");
   } catch (error) {
+    console.error("EARLY ACCESS ERROR:", error);
     setErrorMess(
-      "Could not submit your request. Please try again."
+      "Could not submit your early access request. Please email us directly at motocorenepal@gmail.com."
     );
+  } finally {
+    setIsSubmitting(false);
   }
 };
 
