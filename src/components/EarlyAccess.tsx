@@ -18,28 +18,54 @@ export default function EarlyAccess() {
     }
   }, []);
 
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMess("");
+  const handleRegister = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setErrorMess("");
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.trim()) {
-      setErrorMess("Business email is required.");
-      return;
-    }
-    
-    if (!emailRegex.test(email)) {
-      setErrorMess("Please enter a valid business email address.");
-      return;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!email.trim()) {
+    setErrorMess("Business email is required.");
+    return;
+  }
+
+  if (!emailRegex.test(email)) {
+    setErrorMess("Please enter a valid business email address.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "Early Access Lead",
+        email: email,
+        phone: "Not provided",
+        companySize: "Early Access",
+        message:
+          "User requested early access from the MotoCore ERP priority launch section.",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed");
     }
 
-    // Success flow
     localStorage.setItem("motocore_early_access_email", email);
+
     const randomTicket = Math.floor(Math.random() * 850) + 1240;
     setTicketNum(randomTicket);
     setIsRegistered(true);
     setEmail("");
-  };
+  } catch (error) {
+    setErrorMess(
+      "Could not submit your request. Please try again."
+    );
+  }
+};
 
   return (
     <section id="about" className="py-24 md:py-32 relative overflow-hidden bg-[var(--bg-secondary)] text-[var(--text)]">
