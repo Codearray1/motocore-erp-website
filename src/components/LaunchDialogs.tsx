@@ -23,7 +23,7 @@ export function EarlyAccessModal({ isOpen, onClose }: EarlyAccessModalProps) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Get Early Access Lead",
+        name: "Valued Customer",
         email: email,
         phone: "Not provided",
         companySize: "Get Early Access",
@@ -177,23 +177,46 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
   const [complete, setComplete] = useState(false);
   const [errorMess, setErrorMess] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMess("");
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setErrorMess("");
 
-    if (!fields.name.trim() || !fields.email.trim() || !fields.phone.trim()) {
-      setErrorMess("Please complete all required fields (Name, Email, and Phone).");
-      return;
-    }
+  if (!fields.name.trim() || !fields.email.trim() || !fields.phone.trim()) {
+    setErrorMess("Please complete all required fields (Name, Email, and Phone).");
+    return;
+  }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(fields.email)) {
-      setErrorMess("Email address is invalid.");
-      return;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(fields.email)) {
+    setErrorMess("Email address is invalid.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: fields.name,
+        email: fields.email,
+        phone: fields.phone,
+        companySize: fields.branchCount,
+        message: "Request Demo Submission",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to submit");
     }
 
     setComplete(true);
-  };
+  } catch (error) {
+    console.error("DEMO REQUEST ERROR:", error);
+    setErrorMess("Could not submit your request. Please contact +9779863473651.");
+  }
+};
 
   return (
     <AnimatePresence>
