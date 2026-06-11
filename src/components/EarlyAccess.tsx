@@ -45,7 +45,7 @@ export default function EarlyAccess() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Early Access Lead",
+        name: "Valued Customer",
         email,
         phone: "Not provided",
         companySize: "Early Access",
