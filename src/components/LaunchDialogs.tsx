@@ -255,7 +255,7 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                     Request Product Demo
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Schedule a 1-on-1 virtual walkthrough of our vehicle pricing algorithm with a product architect.
+                    Schedule a personalized MotoCore ERP walkthrough with our product specialists.
                   </p>
                 </div>
 
