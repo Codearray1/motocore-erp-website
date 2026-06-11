@@ -73,6 +73,10 @@ export default async function handler(
     });
 
     try {
+      const displayName =
+  name === "Get Early Access Lead"
+    ? "Valued Customer"
+    : name;
       await transporter.sendMail({
         from: `"MotoCore ERP" <${process.env.GMAIL_USER}>`,
         to: email,
@@ -83,7 +87,7 @@ export default async function handler(
             <div style="max-width:700px; margin:auto; background:#ffffff; padding:28px; border-radius:12px; border:1px solid #eeeeee;">
               <h2 style="color:#E30613;">Thank You for Contacting MotoCore ERP</h2>
 
-              <p>Dear ${name},</p>
+              <p>Dear ${displayName},</p>
 
               <p>
                 Your inquiry has been submitted successfully.
