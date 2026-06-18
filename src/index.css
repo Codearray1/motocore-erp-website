@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg: #FFFFFF;
+  --bg-secondary: #F7F7F7;
+  --text: #111111;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --accent: #E30613;
+}
+
+[data-theme="dark"] {
+  --bg: #0B0B0B;
+  --bg-secondary: #121212;
+  --card: #181818;
+  --text: #FFFFFF;
+  --border: #2A2A2A;
+  --accent: #E30613;
+}
+
+/* Global Smooth Transitions */
+*, ::before, ::after {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-brand-red: var(--accent);
+  --color-brand-black: var(--bg);
+  --color-brand-dark: var(--card);
+  --color-brand-white: var(--bg);
+  --color-brand-light: var(--bg-secondary);
+  
+  --color-bg-theme: var(--bg);
+  --color-bg-sec: var(--bg-secondary);
+  --color-card-theme: var(--card);
+  --color-text-theme: var(--text);
+  --color-border-theme: var(--border);
+  --color-accent-theme: var(--accent);
+  
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-subtle: pulse-subtle 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: .85;
+    transform: scale(1.015);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0B0B0B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(227, 6, 19, 0.2);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(227, 6, 19, 0.5);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-panel {
+  background: rgba(11, 11, 11, 0.75);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.neon-glow-red {
+  box-shadow: 0 4px 30px rgba(227, 6, 19, 0.1);
+}
+
+.dark .neon-glow-red {
+  box-shadow: 0 4px 40px rgba(227, 6, 19, 0.25);
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MotoCore ERP | Driving Automotive Operations Forward</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+<meta name="description" content="MotoCore ERP is a complete automotive ERP platform for dealerships, workshops, service centers, parts distributors, used vehicle businesses, and automotive enterprises." />
+<meta property="og:title" content="MotoCore ERP | Driving Automotive Operations Forward" />
+<meta property="og:description" content="Complete automotive ERP for dealerships, workshops, service centers, parts distributors, and automotive enterprises." />
+<meta property="og:image" content="/favicon.png" />
+<meta property="og:type" content="website" />
+    <script>
+      // Early robust patch to prevent "Cannot set property 'fetch' of #<Window> which has only a getter"
+      (function() {
+        try {
+          var originalFetch = window.fetch;
+          var customFetch = originalFetch;
+
+          // Try standard property redefinition first (most direct and safest)
+          var desc = Object.getOwnPropertyDescriptor(window, 'fetch');
+          if (desc && desc.configurable) {
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function() { return customFetch; },
+              set: function(val) { customFetch = val; }
+            });
+            return;
+          }
+          
+          // Try the prototype of window (e.g. Window.prototype)
+          var proto = window;
+          while (proto = Object.getPrototypeOf(proto)) {
+            var protoDesc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+            if (protoDesc && protoDesc.configurable) {
+              Object.defineProperty(proto, 'fetch', {
+                configurable: true,
+                enumerable: true,
+                get: function() { return customFetch; },
+                set: function(val) { customFetch = val; }
+              });
+              return;
+            }
+          }
+
+          // If fetch is completely locked on window and its prototype chain, 
+          // we proxy globalThis and self to catch assignments to globalThis.fetch/self.fetch
+          var globalProxy = new Proxy(window, {
+            get: function(target, prop, receiver) {
+              if (prop === 'fetch') {
+                return customFetch;
+              }
+              var value = Reflect.get(target, prop, target);
+              if (typeof value === 'function') {
+                return value.bind(target);
+              }
+              return value;
+            },
+            set: function(target, prop, val, receiver) {
+              if (prop === 'fetch') {
+                customFetch = val;
+                return true;
+              }
+              return Reflect.set(target, prop, val, target);
+            }
+          });
+
+          Object.defineProperty(window, 'globalThis', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return globalProxy; }
+          });
+
+          Object.defineProperty(window, 'self', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return globalProxy; }
+          });
+        } catch (e) {
+          console.warn("Could not fully resolve fetch write restriction, error:", e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
