@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Play } from "lucide-react";
-import { CountdownState } from "../types";
+import { Play , Phone } from "lucide-react";
 
 interface HeroProps {
   onOpenEarlyAccess: () => void;
@@ -9,60 +7,22 @@ interface HeroProps {
 }
 
 export default function Hero({ onOpenEarlyAccess, onOpenDemoRequest }: HeroProps) {
-  const [countdown, setCountdown] = useState<CountdownState>({
-    days: "00",
-    hours: "00",
-    minutes: "00",
-    seconds: "00"
-  });
 
-  useEffect(() => {
-    // Launch Date: July 1st, 2026 UTC
-    const targetTime = new Date("2026-07-01T00:00:00Z").getTime();
-
-    const updateTimer = () => {
-      const now = new Date().getTime();
-      const difference = targetTime - now;
-
-      if (difference <= 0) {
-        setCountdown({ days: "00", hours: "00", minutes: "00", seconds: "00" });
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      // Pad with leading zeros
-      setCountdown({
-        days: days.toString().padStart(2, "0"),
-        hours: hours.toString().padStart(2, "0"),
-        minutes: minutes.toString().padStart(2, "0"),
-        seconds: seconds.toString().padStart(2, "0")
-      });
-    };
-
-    updateTimer(); // Initial call
-    const intervalId = setInterval(updateTimer, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   return (
     <section className="relative min-h-screen pt-32 pb-24 md:pt-40 md:pb-36 flex items-center justify-center overflow-hidden bg-[var(--bg)] text-[var(--text)]">
       {/* Dynamic Background Mesh Grid (Tesla & Stripe style) */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-[0.03] dark:opacity-[0.05] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-      
+
       {/* Decorative Blur Orbs */}
       <div className="absolute -top-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-brand-red opacity-[0.06] dark:opacity-[0.14] blur-[100px] pointer-events-none"></div>
       <div className="absolute top-[40%] right-[5%] w-[500px] h-[500px] rounded-full bg-brand-red opacity-[0.04] dark:opacity-[0.1] blur-[120px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10 w-full">
-        
+
         {/* Columns 1 to 7: Launch Copy */}
         <div className="lg:col-span-7 flex flex-col space-y-8 text-left">
-          
+
           {/* Tagline Badge */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -102,50 +62,32 @@ export default function Hero({ onOpenEarlyAccess, onOpenDemoRequest }: HeroProps
             MotoCore ERP is a complete automotive business management platform designed for dealerships, workshops, service centers, spare parts distributors, used vehicle businesses, and automotive enterprises.
           </motion.p>
 
-          {/* Dynamic Countdown Display */}
+          {/* Discount Slots Progress Bar */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="p-6 md:p-8 rounded-3xl bg-[var(--bg-secondary)]/90 border border-[var(--border)] shadow-xl dark:shadow-none backdrop-blur-md max-w-lg"
           >
-            <div className="text-xs font-bold font-display tracking-widest text-[var(--text)] opacity-50 uppercase mb-4 text-center md:text-left">
-              LAUNCH COUNTDOWN • JULY 1ST, 2026
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-3">
+              <div className="text-xs md:text-sm font-bold font-display tracking-widest text-[var(--text)] uppercase">
+                50% Discount (First 10 Customers)
+              </div>
+              <div className="text-xs font-bold text-brand-red bg-brand-red/10 border border-brand-red/20 px-3 py-1.5 rounded-lg whitespace-nowrap">
+                3 Slots Remaining
+              </div>
             </div>
-            
-            <div className="grid grid-cols-4 gap-3 md:gap-4">
-              <div className="flex flex-col items-center">
-                <span className="text-3xl md:text-4xl font-extrabold font-display text-brand-red tracking-tight">
-                  {countdown.days}
-                </span>
-                <span className="text-[10px] md:text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase mt-1">
-                  Days
-                </span>
-              </div>
-              <div className="flex flex-col items-center border-l border-[var(--border)]">
-                <span className="text-3xl md:text-4xl font-extrabold font-display text-[var(--text)] tracking-tight">
-                  {countdown.hours}
-                </span>
-                <span className="text-[10px] md:text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase mt-1">
-                  Hours
-                </span>
-              </div>
-              <div className="flex flex-col items-center border-l border-[var(--border)]">
-                <span className="text-3xl md:text-4xl font-extrabold font-display text-[var(--text)] tracking-tight">
-                  {countdown.minutes}
-                </span>
-                <span className="text-[10px] md:text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase mt-1">
-                  Mins
-                </span>
-              </div>
-              <div className="flex flex-col items-center border-l border-[var(--border)]">
-                <span className="text-3xl md:text-4xl font-extrabold font-display text-[var(--text)] tracking-tight">
-                  {countdown.seconds}
-                </span>
-                <span className="text-[10px] md:text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase mt-1">
-                  Secs
-                </span>
-              </div>
+
+            <div className="flex gap-1.5 md:gap-2 mb-3">
+              {[...Array(10)].map((_, i) => (
+                <div
+                  key={i}
+                  className={`flex-1 h-3 md:h-4 rounded-full transition-all duration-500 ${i < 7 ? 'bg-brand-red shadow-[0_0_10px_rgba(255,51,51,0.5)]' : 'bg-[var(--border)]/60'}`}
+                />
+              ))}
+            </div>
+            <div className="text-[11px] font-bold text-right text-[var(--text)] opacity-60 uppercase tracking-wider">
+              7/10 Slots Claimed
             </div>
           </motion.div>
 
@@ -154,30 +96,30 @@ export default function Hero({ onOpenEarlyAccess, onOpenDemoRequest }: HeroProps
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 pt-2"
+            className="flex flex-col sm:flex-row gap-4 pt-2 w-full max-w-lg"
           >
             <button
               onClick={onOpenEarlyAccess}
-              className="inline-flex items-center justify-center px-8 py-4 bg-brand-red text-white text-base font-bold rounded-2xl cursor-pointer active:scale-95 transition-all outline-none border-none shadow-lg shadow-brand-red/30 hover:shadow-brand-red/45 hover:scale-[1.02] duration-300"
+              className="flex-1 inline-flex items-center justify-center px-6 py-4 bg-brand-red text-white text-base font-bold rounded-2xl cursor-pointer active:scale-95 transition-all outline-none border-none shadow-lg shadow-brand-red/30 hover:shadow-brand-red/45 hover:scale-[1.02] duration-300"
             >
-              Get Early Access
-              <ArrowRight className="ml-2 h-5 w-5" />
+              Start Free Trial
+              <Play className="ml-2 h-5 w-5" />
             </button>
 
-            <button
-              onClick={onOpenDemoRequest}
-              className="inline-flex items-center justify-center px-8 py-4 bg-[var(--bg-secondary)] text-[var(--text)] text-base font-bold rounded-2xl cursor-pointer active:scale-95 hover:bg-[var(--border)] border border-[var(--border)] transition-all duration-300 hover:scale-[1.02]"
-            >
-              Request Demo
-              <Play className="ml-2.5 h-4.5 w-4.5 fill-current text-[var(--text)] opacity-80" />
-            </button>
+            <a
+              href="tel:+9779863473651"
+              className="flex-1 inline-flex items-center justify-center px-6 py-4 bg-[var(--bg-secondary)] text-[var(--text)] text-base font-bold rounded-2xl cursor-pointer active:scale-95 hover:bg-[var(--border)] border border-[var(--border)] transition-all duration-300 hover:scale-[1.02]"
+             >
+              +977 9863473651
+              <Phone className="ml-2.5 h-4.5 w-4.5 fill-current text-[var(--text)] opacity-80" />
+            </a>
           </motion.div>
 
         </div>
 
         {/* Columns 8 to 12: Hero Mockup Visuals with layered parallax & animations */}
         <div className="lg:col-span-5 relative w-full flex items-center justify-center lg:items-end mt-12 lg:mt-0">
-          
+
           {/* Ambient Glow backing */}
           <div className="absolute w-[120%] h-[120%] bg-gradient-to-tr from-brand-red/10 to-transparent blur-3xl pointer-events-none"></div>
 
@@ -208,8 +150,8 @@ export default function Hero({ onOpenEarlyAccess, onOpenDemoRequest }: HeroProps
           <motion.div
             initial={{ opacity: 0, x: -30, y: 40 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ 
-              duration: 0.9, 
+            transition={{
+              duration: 0.9,
               delay: 0.4,
               type: "spring",
               stiffness: 80

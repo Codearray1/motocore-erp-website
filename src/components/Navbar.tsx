@@ -29,113 +29,143 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)]">
-     <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-between">
-        {/* LOGO: Pure high-precision vector SVG replacing broken external image URL */}
-        <div className="flex items-center">
-          <a href="#" className="flex items-center" onClick={(e) => handleLinkClick(e, "#top")} aria-label="MotoCore ERP Homepage">
-            <div className="transition-transform hover:scale-102 flex items-center">
-              <Logo className="h-24 md:h-28 w-auto object-contain" />
-            </div>
-          </a>
+    <header className="fixed top-0 left-0 w-full z-50 flex flex-col">
+      {/* Launch Offer Banner */}
+      <div className="w-full bg-[var(--bg)] text-[var(--text)] border-b border-[var(--border)] py-1.5 px-4 text-center text-[10px] md:text-xs font-medium tracking-wide flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 z-50 relative">
+        <div className="flex items-center gap-2">
+          <span className="font-bold uppercase text-brand-red border border-brand-red/30 px-1.5 py-0.5 rounded-sm">Launch Offer</span>
+          <span className="hidden sm:inline opacity-40">•</span>
+          <span>Up to 50% lifetime discount</span>
         </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={(e) => handleLinkClick(e, link.href)}
-              className="text-sm font-medium tracking-wide text-[var(--text)] opacity-85 hover:opacity-100 hover:text-brand-red dark:hover:text-brand-red transition-all duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Utility Actions */}
-        <div className="hidden lg:flex items-center space-x-6">
-          {/* Theme Toggle Button */}
-          <button
-            onClick={onToggleTheme}
-            className="inline-flex items-center justify-center h-11 px-4 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)] cursor-pointer shadow-sm text-sm"
-            aria-label="Toggle Theme"
-          >
-            {isDarkMode ? (
-              <span className="flex items-center gap-1.5 font-semibold text-xs tracking-wider">
-                <span>☀</span> <span>Light Mode</span>
-              </span>
-            ) : (
-              <span className="flex items-center gap-1.5 font-semibold text-xs tracking-wider">
-                <span>🌙</span> <span>Dark Mode</span>
-              </span>
-            )}
-          </button>
-
-          <button
-            onClick={onOpenEarlyAccess}
-            className="inline-flex items-center bg-brand-red hover:bg-brand-red/90 text-white text-sm font-bold tracking-wide px-5 py-3 rounded-xl transition-all duration-200 active:scale-95 shadow-md hover:shadow-brand-red/20 hover:shadow-lg cursor-pointer"
-          >
-            Get Early Access
-            <ArrowRight className="ml-2 h-4.5 w-4.5" />
-          </button>
-        </div>
-
-        {/* Mobile Hamburger Menu Toggle */}
-        <div className="flex items-center space-x-4 lg:hidden">
-          <button
-            onClick={onToggleTheme}
-            className="inline-flex items-center justify-center h-10 px-3.5 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)]"
-            aria-label="Toggle Theme"
-          >
-            {isDarkMode ? (
-              <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
-                <span>☀</span> <span>Light</span>
-              </span>
-            ) : (
-              <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
-                <span>🌙</span> <span>Dark</span>
-              </span>
-            )}
-          </button>
-
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-xl bg-[var(--bg-secondary)] text-[var(--text)] hover:bg-[var(--border)] transition-colors border border-[var(--border)]"
-            aria-label="Toggle Menu"
-          >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
+        <span className="hidden sm:inline opacity-40">•</span>
+        <span>Free installation & setup</span>
+        <span className="hidden sm:inline opacity-40">•</span>
+        <span>15 days free trial for all</span>
       </div>
+      <div className="w-full bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)]">
+        <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+          {/* LOGO: Pure high-precision vector SVG replacing broken external image URL */}
+          <div className="flex items-center">
+            <a href="#" className="flex items-center" onClick={(e) => handleLinkClick(e, "#top")} aria-label="MotoCore ERP Homepage">
+              <div className="transition-transform hover:scale-102 flex items-center">
+                <Logo className="h-24 md:h-28 w-auto object-contain" />
+              </div>
+            </a>
+          </div>
 
-      {/* Mobile Drawer */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-28 left-0 w-full bg-[var(--bg)] border-b border-[var(--border)] py-6 px-6 shadow-xl transition-all duration-300 ease-in-out">
-          <div className="flex flex-col space-y-4">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-base font-semibold text-[var(--text)] hover:text-brand-red py-2 transition-colors border-b border-[var(--border)]"
+                className="text-sm font-medium tracking-wide text-[var(--text)] opacity-85 hover:opacity-100 hover:text-brand-red dark:hover:text-brand-red transition-all duration-200"
               >
                 {link.label}
               </a>
             ))}
+          </nav>
+
+          {/* Utility Actions */}
+          <div className="hidden lg:flex items-center space-x-6">
+            {/* Theme Toggle Button */}
             <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenEarlyAccess();
-              }}
-              className="w-full text-center bg-brand-red text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-brand-red/20 active:scale-95 transition-all"
+              onClick={onToggleTheme}
+              className="inline-flex items-center justify-center h-11 px-4 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)] cursor-pointer shadow-sm text-sm"
+              aria-label="Toggle Theme"
             >
-              Get Early Access
+              {isDarkMode ? (
+                <span className="flex items-center gap-1.5 font-semibold text-xs tracking-wider">
+                  <span>☀</span> <span>Light Mode</span>
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 font-semibold text-xs tracking-wider">
+                  <span>🌙</span> <span>Dark Mode</span>
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => { window.location.href = '/login'; }}
+              className="inline-flex items-center text-[var(--text)] hover:text-brand-red text-sm font-bold tracking-wide px-3 py-2 transition-colors duration-200 cursor-pointer"
+            >
+              Login
+            </button>
+            <button
+              onClick={() => { window.location.href = '/register'; }}
+              className="inline-flex items-center bg-brand-red hover:bg-brand-red/90 text-white text-sm font-bold tracking-wide px-5 py-3 rounded-xl transition-all duration-200 active:scale-95 shadow-md hover:shadow-brand-red/20 hover:shadow-lg cursor-pointer"
+            >
+              Register
+            </button>
+          </div>
+
+          {/* Mobile Hamburger Menu Toggle */}
+          <div className="flex items-center space-x-4 lg:hidden">
+            <button
+              onClick={onToggleTheme}
+              className="inline-flex items-center justify-center h-10 px-3.5 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)]"
+              aria-label="Toggle Theme"
+            >
+              {isDarkMode ? (
+                <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
+                  <span>☀</span> <span>Light</span>
+                </span>
+              ) : (
+                <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
+                  <span>🌙</span> <span>Dark</span>
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-xl bg-[var(--bg-secondary)] text-[var(--text)] hover:bg-[var(--border)] transition-colors border border-[var(--border)]"
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
-      )}
+
+        {/* Mobile Drawer */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden absolute top-28 left-0 w-full bg-[var(--bg)] border-b border-[var(--border)] py-6 px-6 shadow-xl transition-all duration-300 ease-in-out">
+            <div className="flex flex-col space-y-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  className="text-base font-semibold text-[var(--text)] hover:text-brand-red py-2 transition-colors border-b border-[var(--border)]"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="flex gap-3 mt-4">
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    window.location.href = '/login';
+                  }}
+                  className="flex-1 text-center bg-[var(--bg-secondary)] text-[var(--text)] border border-[var(--border)] py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-[var(--border)] active:scale-95 transition-all"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    window.location.href = '/register';
+                  }}
+                  className="flex-1 text-center bg-brand-red text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-brand-red/20 active:scale-95 transition-all"
+                >
+                  Register
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 }
