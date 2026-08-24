@@ -8,6 +8,7 @@ import EarlyAccess from "./components/EarlyAccess";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { EarlyAccessModal, DemoRequestModal } from "./components/LaunchDialogs";
+import NadaExclusive from "./components/NadaExclusive";
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
@@ -68,7 +69,7 @@ export default function App() {
       />
 
       {/* 2. Main content modules */}
-      <main className="flex-grow">
+      <main className="flex-grow mt-7">
         {/* Launch Intro Block with Ticking HUD Countdown */}
         <Hero 
           onOpenEarlyAccess={handleOpenEarlyAccess} 
@@ -77,6 +78,9 @@ export default function App() {
         
         {/* Sector validation caps */}
         <TrustedBy />
+
+        {/* Exclusive NADA Offer Section */}
+        <NadaExclusive />
 
         {/* 8-Card Business Management Feature Suite */}
         <Features />

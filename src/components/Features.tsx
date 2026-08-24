@@ -111,7 +111,7 @@ export default function Features() {
                   </div>
 
                   {/* Icon Module */}
-                  <div className="mb-6 inline-flex p-3.5 rounded-2xl bg-[var(--bg-secondary)] text-[var(--text)] group-hover:bg-[#E30613] group-hover:text-white transition-all duration-300 shadow-sm border border-[var(--border)]">
+                  <div className="mb-6 inline-flex p-3.5 rounded-2xl bg-[#E30613] text-white transition-all duration-300 shadow-sm border border-[#E30613]/20">
                     <IconComponent className="h-6 w-6" />
                   </div>
 

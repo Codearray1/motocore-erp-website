@@ -129,13 +129,14 @@ export default function Contact() {
 
             {/* Headquarter City Image */}
             <div className="relative rounded-2xl overflow-hidden h-40 border border-[var(--border)] shadow-md">
-               <img
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbHAr377R53Lo2yx_xVsV-SyCYbjVLtHQAdwa2RllJiP-FDt1TtpKQOTkKEr4bhYqSaFnmtlBeZk_VfMexyuL0C3p90CPqCvKxZbjFdHnRCv3GaZvE9So_PCTv9DoTWYsbN-iuO1GZB1EH4s7XZBSSIXx4ZQYbAJVmre_9JsLgbwtCOt53iKxkZ0MLwyw4l3StvoDcUY7zYT_vNb_1YL06sJY4aFMcBOHuLLuMtOy27oowjgSoWo_cWHt2VJfFhAH7KFjbMhM6rT4"
-                 alt="Corporate Lalitpur Headquarters Office"
-                 className="w-full h-full object-cover grayscale opacity-90 dark:opacity-85 select-none"
-                 referrerPolicy="no-referrer"
-               />
-               <div className="absolute inset-0 bg-brand-red/10 group-hover:bg-transparent transition-all"></div>
+               <iframe 
+                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.036205783378!2d85.30035305032845!3d27.68527583696681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19002114198f%3A0x52f208002bfa067!2sCodesc%20Nepal%20Pvt%20Ltd!5e0!3m2!1sen!2snp!4v1787222188007!5m2!1sen!2snp" 
+                 className="w-full h-full " 
+                 style={{ border: 0 }} 
+                 allowFullScreen={false} 
+                 loading="lazy" 
+                 referrerPolicy="strict-origin-when-cross-origin"
+               ></iframe>
              </div>
 
           </div>
