@@ -72,15 +72,13 @@ export default function App() {
       <main className="flex-grow mt-7">
         {/* Launch Intro Block with Ticking HUD Countdown */}
         <Hero 
-          onOpenEarlyAccess={handleOpenEarlyAccess} 
-          onOpenDemoRequest={handleOpenDemoRequest} 
+          // onOpenEarlyAccess={handleOpenEarlyAccess} 
+          // onOpenDemoRequest={handleOpenDemoRequest} 
         />
         
         {/* Sector validation caps */}
         <TrustedBy />
 
-        {/* Exclusive NADA Offer Section */}
-        <NadaExclusive />
 
         {/* 8-Card Business Management Feature Suite */}
         <Features />
