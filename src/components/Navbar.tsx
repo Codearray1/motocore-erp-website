@@ -33,14 +33,13 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 flex flex-col">
-      {/* Launch Offer Banner */}
+      {/*Banner */}
       <div className="w-full bg-[var(--bg)] text-[var(--text)] border-b border-[var(--border)] py-1.5 px-4 text-center text-[10px] md:text-xs font-medium tracking-wide flex items-center justify-center gap-2 z-50 relative overflow-hidden whitespace-nowrap">
-        <span className="font-bold uppercase text-brand-red border border-brand-red/30 px-1.5 py-0.5 rounded-sm shrink-0">Launch Offer</span>
+        <span className="font-bold uppercase text-brand-red border border-brand-red/30 px-1.5 py-0.5 rounded-sm shrink-0">New Launch</span>
         <span className="truncate">
-          Up to 50% lifetime discount
+          MotoCore Recon Lite now available
           <span className="hidden sm:inline">
-            <span className="opacity-40 px-2">•</span> Free installation & setup
-            <span className="opacity-40 px-2">•</span> 15 days free trial for all
+            <span className="opacity-40 px-2">•</span> 15 days free trial
           </span>
         </span>
       </div>
