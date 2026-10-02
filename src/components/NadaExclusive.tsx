@@ -20,7 +20,7 @@ export default function NadaExclusive() {
               transition={{ duration: 0.5 }}
             >
               <div className="inline-block bg-brand-red text-white text-[10px] font-bold px-3 py-1.5 rounded-sm uppercase tracking-wider mb-6">
-                NADA EXCLUSIVE
+                LAUNCH EXCLUSIVE
               </div>
               
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--text)] [.dark_&]:text-white mb-4 tracking-tight">
@@ -28,17 +28,17 @@ export default function NadaExclusive() {
               </h2>
               
               <p className="text-lg md:text-xl text-[var(--text)]/80 [.dark_&]:text-gray-300 mb-10">
-                Start your free trial at NADA Auto Show 2026.
+                Start your free Motocore Recon Lite trial.
               </p>
               
               <a href="https://app.motocoreerp.com/register" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-4 bg-brand-red text-white text-base font-bold rounded-2xl cursor-pointer active:scale-95 transition-all outline-none border-none shadow-lg shadow-brand-red/30 hover:shadow-brand-red/45 hover:scale-[1.02] duration-300">
-                Claim My NADA Offer
+                Claim Offer
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
               
-              <p className="text-xs text-[var(--text)]/60 [.dark_&]:text-gray-500 mt-6">
+              {/* <p className="text-xs text-[var(--text)]/60 [.dark_&]:text-gray-500 mt-6">
                 Limited NADA campaign. Terms apply.
-              </p>
+              </p> */}
             </motion.div>
           </div>
 

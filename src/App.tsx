@@ -79,6 +79,8 @@ export default function App() {
         {/* Sector validation caps */}
         <TrustedBy />
 
+        {/* Exclusive NADA Offer Section */}
+        <NadaExclusive />
 
         {/* 8-Card Business Management Feature Suite */}
         <Features />

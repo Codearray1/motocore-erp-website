@@ -33,7 +33,7 @@ export default function Hero() {
           >
             <span className="w-3 h-3 rounded-full bg-brand-red animate-pulse"></span>
             <span className="text-xs font-bold tracking-widest text-brand-red uppercase font-display">
-                Start Your Free Trial Today
+                MotoCore Recon Lite now available
             </span>
           </motion.div>
 
