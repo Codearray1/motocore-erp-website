@@ -15,7 +15,7 @@ export default function EarlyAccess() {
   });
 
   const openRegisterPage = () => {
-    window.open("https://app.motocoreerp.com/register", "_blank");
+    window.open("https://live.motocoreerp.com/register", "_blank");
   };
 
   const handleChange = (

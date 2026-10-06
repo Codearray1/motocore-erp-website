@@ -12,7 +12,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const openRegisterPage = () => {
-    window.open("https://app.motocoreerp.com/register", "_blank");
+    window.open("https://live.motocoreerp.com/register", "_blank");
   };
 
   const navLinks = [
@@ -88,7 +88,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
             </button>
 
             <button
-              onClick={() => { window.location.href = 'https://app.motocoreerp.com/'; }}
+              onClick={() => { window.location.href = 'https://live.motocoreerp.com/'; }}
               className="inline-flex items-center text-[var(--text)] hover:text-brand-red text-sm font-bold tracking-wide px-3 py-2 transition-colors duration-200 cursor-pointer"
             >
               Login

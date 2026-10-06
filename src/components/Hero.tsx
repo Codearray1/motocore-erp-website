@@ -6,7 +6,7 @@ import heroPicture from "../assets/pictures/heropicture.png";
 
 export default function Hero() {
     const openRegisterPage = () => {
-    window.open("https://app.motocoreerp.com/register", "_blank");
+    window.open("https://live.motocoreerp.com/register", "_blank");
   };
 
 

@@ -31,7 +31,7 @@ export default function NadaExclusive() {
                 Start your free Motocore Recon Lite trial.
               </p>
               
-              <a href="https://app.motocoreerp.com/register" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-4 bg-brand-red text-white text-base font-bold rounded-2xl cursor-pointer active:scale-95 transition-all outline-none border-none shadow-lg shadow-brand-red/30 hover:shadow-brand-red/45 hover:scale-[1.02] duration-300">
+              <a href="https://live.motocoreerp.com/register" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-4 bg-brand-red text-white text-base font-bold rounded-2xl cursor-pointer active:scale-95 transition-all outline-none border-none shadow-lg shadow-brand-red/30 hover:shadow-brand-red/45 hover:scale-[1.02] duration-300">
                 Claim Offer
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
@@ -48,7 +48,7 @@ export default function NadaExclusive() {
               
               {/* Card 1 - Red (First 10) */}
               <motion.a 
-                href="https://app.motocoreerp.com/register"
+                href="https://live.motocoreerp.com/register"
                 target="_blank" rel="noopener noreferrer"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -77,7 +77,7 @@ export default function NadaExclusive() {
 
               {/* Card 2 - Dark (Next 10 - 35%) */}
               <motion.a 
-                href="https://app.motocoreerp.com/register"
+                href="https://live.motocoreerp.com/register"
                 target="_blank" rel="noopener noreferrer"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -106,7 +106,7 @@ export default function NadaExclusive() {
 
               {/* Card 3 - Dark (Next 10 - 20%) */}
               <motion.a 
-                href="https://app.motocoreerp.com/register"
+                href="https://live.motocoreerp.com/register"
                 target="_blank" rel="noopener noreferrer"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -135,7 +135,7 @@ export default function NadaExclusive() {
 
               {/* Card 4 - Glass (Others) */}
               <motion.a 
-                href="https://app.motocoreerp.com/register"
+                href="https://live.motocoreerp.com/register"
                 target="_blank" rel="noopener noreferrer"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}

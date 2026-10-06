@@ -5,7 +5,7 @@ import tapaikobazarLogo from "../assets/pictures/tapaikobazarlogo.png";
 
 export default function TrustedBy() {
     const openRegisterPage = () => {
-    window.open("https://app.motocoreerp.com/register", "_blank");
+    window.open("https://live.motocoreerp.com/register", "_blank");
   };
   
   return (
