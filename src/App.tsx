@@ -15,6 +15,7 @@ import LegalPage from "./pages/LegalPage";
 import ProductStrip from "./components/ProductStrip";
 import LatestPosts from "./components/LatestPosts";
 import FeaturedBike from "./components/FeaturedBike";
+import AppShowcase from "./components/AppShowcase";
 import HomeFaq from "./components/HomeFaq";
 import { BlogArticle, BlogIndex } from "./pages/BlogPage";
 import type { RouteDef } from "./seo/routes";
@@ -103,6 +104,9 @@ export default function App({ route }: { route: RouteDef }) {
 
         {/* Featured product: MotoCore Bike */}
         <FeaturedBike />
+
+        {/* MotoCore Bike mobile app: real screens */}
+        <AppShowcase />
 
         {/* Early launch offer (Parts, Workshop, Recon-Lite) */}
         <NadaExclusive />
