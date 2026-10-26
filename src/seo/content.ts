@@ -5,7 +5,10 @@ import bikeDashboard from "../assets/products/bike-dashboard.webp";
 import bikeInquiries from "../assets/products/bike-inquiries.webp";
 import bikeBookings from "../assets/products/bike-bookings.webp";
 import bikeAllocation from "../assets/products/bike-allocation.webp";
-import bikeMobile from "../assets/products/bike-mobile-dashboard.webp";
+import appHome from "../assets/products/app-home.webp";
+import appLeads from "../assets/products/app-leads.webp";
+import appDeal from "../assets/products/app-deal.webp";
+import appApprovals from "../assets/products/app-approvals.webp";
 import partsProDashboard from "../assets/products/parts-pro-dashboard.webp";
 import partsInventory from "../assets/products/parts-inventory.webp";
 import partsCatalogue from "../assets/products/parts-catalogue.webp";
@@ -49,7 +52,7 @@ export interface MobileApp {
   text: string;
   points: string[];
   storesNote: string; // shown while no store link is set
-  image: Shot;
+  screens: Shot[]; // real screenshots from the iPhone app
 }
 
 /** Public store links for the MotoCore Bike app; an empty link hides that store's button. */
@@ -148,7 +151,6 @@ const bikeShots = (lang: Lang): { heading: string; items: Shot[] } => {
       { src: bikeInquiries, width: 1600, height: 711, alt: ne ? "हट, वार्म र कोल्ड सोधपुछ सूची" : "Inquiries by hot, warm and cold temperature", caption: ne ? "सोधपुछ र लिड: तापक्रम, स्रोत र अपेक्षित खरिद मितिसहित।" : "Inquiries and leads with temperature, source and expected purchase date." },
       { src: bikeBookings, width: 1600, height: 522, alt: ne ? "बुकिङ ग्राहक, तिरेको र बाँकी रकम" : "Booking customers with paid and outstanding amounts", caption: ne ? "बुकिङ ग्राहक: बिक्री मूल्य, तिरेको र बाँकी रकम, स्टकको अवस्था।" : "Booking customers: deal value, paid and outstanding amounts, stock status." },
       { src: bikeAllocation, width: 1600, height: 467, alt: ne ? "एलोकेसन सेन्टर" : "Allocation Center", caption: ne ? "एलोकेसन सेन्टर: पूरा भुक्तानी भएका बुकिङमा VIN तोक्नुहोस् र डेलिभर गर्नुहोस्।" : "Allocation Center: allocate a VIN to paid bookings and deliver." },
-      { src: bikeMobile, width: 600, height: 1230, phone: true, alt: ne ? "मोबाइल एपमा MotoCore Bike" : "MotoCore Bike on a phone", caption: ne ? "बिक्री टोलीका लागि मोबाइलमा पनि।" : "The same dashboard on the sales team's phone." },
     ],
   };
 };
@@ -175,7 +177,12 @@ const bikeApp = (lang: Lang): MobileApp => {
           "Exchange, namsari, refunds and collections on the phone",
         ],
     storesNote: ne ? "एप डाउनलोडका लागि हाम्रो टोलीलाई सम्पर्क गर्नुहोस्।" : "Ask our team for the app download when you sign up.",
-    image: { src: bikeMobile, width: 600, height: 1230, phone: true, alt: ne ? "MotoCore Bike मोबाइल एपको ड्यासबोर्ड" : "MotoCore Bike mobile app dashboard", caption: "" },
+    screens: [
+      { src: appHome, width: 600, height: 1298, phone: true, alt: ne ? "MotoCore Bike एपको गृह स्क्रिन" : "MotoCore Bike app home screen", caption: ne ? "आजको सङ्कलन र ध्यान दिनुपर्ने काम" : "Today's collections and what needs attention" },
+      { src: appLeads, width: 600, height: 1298, phone: true, alt: ne ? "एपमा लिड र सोधपुछ" : "Leads and inquiries in the app", caption: ne ? "हट, वार्म र कोल्ड लिड" : "Hot, warm and cold leads" },
+      { src: appDeal, width: 600, height: 1304, phone: true, alt: ne ? "एपमा बुकिङ र भुक्तानी" : "Booking deal centre in the app", caption: ne ? "बुकिङ, भुक्तानी र बाँकी रकम" : "Bookings, payments and balance due" },
+      { src: appApprovals, width: 600, height: 1304, phone: true, alt: ne ? "एपमा स्वीकृति केन्द्र" : "Approvals centre in the app", caption: ne ? "छुट र क्रेडिट स्वीकृति" : "Approve discounts and credit" },
+    ],
   };
 };
 

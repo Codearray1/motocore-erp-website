@@ -54,7 +54,7 @@ export default function ProductPage({ page }: { page: PageContent }) {
 
       {page.mobileApp && (
         <section id="mobile-app" className="scroll-mt-28 border-b border-[var(--border)] bg-[var(--bg)]">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 grid items-center gap-10 md:grid-cols-[1fr_auto]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 grid gap-10">
             <div>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--accent)]">
                 <Smartphone className="h-4 w-4" aria-hidden="true" /> Android · iOS
@@ -79,9 +79,18 @@ export default function ProductPage({ page }: { page: PageContent }) {
                 {!APP_STORES.android && !APP_STORES.ios && <p className="text-sm text-[var(--text)]/70">{page.mobileApp.storesNote}</p>}
               </div>
             </div>
-            <div className="mx-auto w-56 sm:w-64 overflow-hidden rounded-[2rem] border-4 border-[var(--border)] bg-white shadow-xl">
-              <img src={page.mobileApp.image.src} alt={page.mobileApp.image.alt} width={page.mobileApp.image.width} height={page.mobileApp.image.height} loading="lazy" decoding="async" className="block h-auto w-full" />
-            </div>
+            <ul className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+              {page.mobileApp.screens.map((s) => (
+                <li key={s.src}>
+                  <figure>
+                    <div className="overflow-hidden rounded-[1.75rem] border border-[var(--border)] bg-white shadow-xl shadow-black/10">
+                      <img src={s.src} alt={s.alt} width={s.width} height={s.height} loading="lazy" decoding="async" className="block h-auto w-full" />
+                    </div>
+                    <figcaption className="mt-3 text-center text-sm text-[var(--text)]/70">{s.caption}</figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       )}
