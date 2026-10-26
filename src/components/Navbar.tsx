@@ -64,15 +64,20 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
   return (
     <header className="fixed top-0 left-0 w-full z-50 flex flex-col">
       {/*Banner */}
-      <div className="w-full bg-[var(--bg)] text-[var(--text)] border-b border-[var(--border)] py-1.5 px-4 text-center text-[10px] md:text-xs font-medium tracking-wide flex items-center justify-center gap-2 z-50 relative overflow-hidden whitespace-nowrap">
-        <span className="font-bold uppercase text-brand-red border border-brand-red/30 px-1.5 py-0.5 rounded-sm shrink-0">New Launch</span>
+      <a
+        href={ne ? "/ne/bike-showroom-software" : "/bike-showroom-software"}
+        className="group w-full bg-[var(--bg)] text-[var(--text)] border-b border-[var(--border)] py-1.5 px-4 text-center text-[10px] md:text-xs font-medium tracking-wide flex items-center justify-center gap-2 z-50 relative overflow-hidden whitespace-nowrap hover:text-brand-red transition-colors"
+      >
+        <span className="font-bold uppercase text-brand-red border border-brand-red/30 px-1.5 py-0.5 rounded-sm shrink-0">{ne ? "नयाँ" : "New Launch"}</span>
         <span className="truncate">
-          MotoCore Recon Lite now available
+          {ne ? "MotoCore Bike अब उपलब्ध" : "MotoCore Bike now available"}
           <span className="hidden sm:inline">
-            <span className="opacity-40 px-2">•</span> 15 days free trial
+            <span className="opacity-40 px-2">•</span>
+            {ne ? "Android र iOS एपसहित बाइक शोरूम सफ्टवेयर" : "Bike showroom software with Android and iOS app"}
           </span>
         </span>
-      </div>
+        <ArrowRight className="h-3 w-3 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+      </a>
       <div className="w-full bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto px-6 h-19 flex items-center justify-between">
           {/* LOGO: Pure high-precision vector SVG replacing broken external image URL */}
