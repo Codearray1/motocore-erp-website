@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, BadgeCheck, Bike, ClipboardList, FileCheck2, Smartphone, Wallet } from "lucide-react";
 import bikeDashboard from "../assets/products/bike-dashboard.webp";
-import bikeMobile from "../assets/products/bike-mobile-dashboard.webp";
+import appHome from "../assets/products/app-home.webp";
 
 const POINTS = [
   { icon: ClipboardList, title: "Inquiry to booking", text: "Hot / warm / cold inquiries, daily follow-ups and bookings with numbered receipts." },
@@ -56,12 +56,6 @@ export default function FeaturedBike() {
 
         <motion.div {...rise} transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="relative pb-10 lg:pb-0">
           <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-white shadow-2xl shadow-black/15">
-            <div className="flex items-center gap-1.5 border-b border-black/5 bg-[#f4f4f5] px-4 py-2.5" aria-hidden="true">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-              <span className="ml-3 truncate rounded-md bg-white px-3 py-0.5 text-[11px] text-black/50">bike.motocoreerp.com</span>
-            </div>
             <img src={bikeDashboard} alt="MotoCore Bike owner dashboard with inquiries, bookings, stock and collections" width={1600} height={844} loading="lazy" decoding="async" className="block h-auto w-full" />
           </div>
           <motion.div
@@ -69,9 +63,9 @@ export default function FeaturedBike() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute -bottom-2 right-2 w-[26%] min-w-[110px] overflow-hidden rounded-[1.6rem] border-[5px] border-[#111] bg-white shadow-2xl sm:right-6 lg:-bottom-10 lg:-right-4"
+            className="absolute -bottom-2 right-2 w-[26%] min-w-[110px] overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-white shadow-2xl sm:right-6 lg:-bottom-10 lg:-right-4"
           >
-            <img src={bikeMobile} alt="MotoCore Bike mobile app dashboard" width={600} height={1230} loading="lazy" decoding="async" className="block h-auto w-full" />
+            <img src={appHome} alt="MotoCore Bike app home screen with today's collections" width={600} height={1298} loading="lazy" decoding="async" className="block h-auto w-full" />
           </motion.div>
         </motion.div>
       </div>
