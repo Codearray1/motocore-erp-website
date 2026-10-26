@@ -8,7 +8,7 @@ export interface LegalSection {
 }
 
 export interface LegalDoc {
-  slug: "privacy" | "terms";
+  slug: "privacy" | "terms" | "support";
   title: string;
   description: string;
   h1: string;
@@ -272,6 +272,52 @@ export const TERMS: LegalDoc = {
     {
       heading: "16. Contact",
       body: [CONTACT],
+    },
+  ],
+};
+
+// The support page the App Store and Google Play listings link to (Support URL).
+const SUPPORT_EMAIL = "motocoreerp@gmail.com";
+
+export const SUPPORT: LegalDoc = {
+  slug: "support",
+  title: "Support | MotoCore ERP",
+  description: "Get help with MotoCore Bike and the MotoCore mobile app: sign-in, accounts, data deletion and contacts for the MotoCore support team.",
+  h1: "Support",
+  effective: EFFECTIVE,
+  intro: `Need help with MotoCore Bike, the web platform or the MotoCore mobile app for iPhone, iPad and Android? Email us at ${SUPPORT_EMAIL} with your Company Code, your username and a short description of the problem (a screenshot helps). Please never send your password.`,
+  sections: [
+    {
+      heading: "Contact the support team",
+      body: [
+        [
+          `Email: ${SUPPORT_EMAIL}`,
+          "Bijay Devkota, Business Development Officer: accounts, plans, onboarding and training.",
+          "Ashim Nakarmi, Technical Head: the app, sign-in problems, notifications and technical issues.",
+          `${SITE.company}, ${SITE.locality}, Nepal`,
+        ],
+      ],
+    },
+    {
+      heading: "Signing in to the app",
+      body: [
+        "MotoCore is used by staff of dealerships that subscribe to MotoCore. Sign in with the Company Code, username and password your company's Owner gave you; the app does not offer public sign-up.",
+        "Forgot your password? Ask your company's Owner to reset it from Settings > Users. If you are the Owner, email us from your registered address.",
+      ],
+    },
+    {
+      heading: "Accounts and deleting your data",
+      body: [
+        "Staff accounts are created and managed by each company's Owner. An Owner can deactivate a user at any time, which signs that user out of every device.",
+        `To delete your account and personal data, ask your company's Owner, or email ${SUPPORT_EMAIL} with the subject "Delete my account", your Company Code and your username. We confirm the request with your company and then delete or anonymise your personal data, except records the law requires the business to keep (for example financial records). See our Privacy Policy for details.`,
+      ],
+    },
+    {
+      heading: "Notifications and permissions",
+      body: [
+        "The app sends notifications about bookings, payments and approvals only if you allow them. You can turn them off at any time in your device settings.",
+        "Photo library access is used only when you choose an image to upload, such as your company logo.",
+      ],
     },
   ],
 };

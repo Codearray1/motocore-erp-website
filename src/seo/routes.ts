@@ -1,5 +1,5 @@
 import { NE_HOME, PRODUCT_PAGES, PRODUCTS_PAGE, SITE, type Lang, type PageContent } from "./content";
-import { PRIVACY, TERMS, type LegalDoc } from "./legal";
+import { PRIVACY, SUPPORT, TERMS, type LegalDoc } from "./legal";
 import { BLOG, POSTS, type BlogPost } from "./blog";
 
 export interface RouteDef {
@@ -55,7 +55,7 @@ export const ROUTES: RouteDef[] = [
     description: page.description,
     alternates: { en: pathFor(page.slug, "en"), ne: pathFor(page.slug, "ne") },
   })),
-  ...[PRIVACY, TERMS].map<RouteDef>((doc) => ({
+  ...[PRIVACY, TERMS, SUPPORT].map<RouteDef>((doc) => ({
     path: `/${doc.slug}`,
     lang: "en",
     kind: "legal",
