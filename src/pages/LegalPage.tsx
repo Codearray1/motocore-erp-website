@@ -1,6 +1,6 @@
 import type { LegalDoc } from "../seo/legal";
 
-/** Privacy Policy and Terms of Service: plain, readable text. */
+/** Privacy Policy, Terms of Service and Support: plain, readable text. */
 export default function LegalPage({ doc }: { doc: LegalDoc }) {
   return (
     <article className="bg-[var(--bg)]">
@@ -9,7 +9,7 @@ export default function LegalPage({ doc }: { doc: LegalDoc }) {
           <a href="/" className="hover:text-[var(--accent)]">Home</a> <span aria-hidden="true">/</span> <span>{doc.h1}</span>
         </nav>
         <h1 className="font-display text-3xl sm:text-4xl font-bold">{doc.h1}</h1>
-        <p className="mt-2 text-sm text-[var(--text)]/70">Effective date: {doc.effective}</p>
+        <p className="mt-2 text-sm text-[var(--text)]/70">{doc.slug === "support" ? "Last updated" : "Effective date"}: {doc.effective}</p>
         <p className="mt-6 leading-relaxed text-[var(--text)]/85">{doc.intro}</p>
         {doc.sections.map((s) => (
           <section key={s.heading} className="mt-10">

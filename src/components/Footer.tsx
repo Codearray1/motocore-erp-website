@@ -143,6 +143,9 @@ export default function Footer({ route }: { route: RouteDef }) {
             <li>
               <a href="/terms" className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">Terms of Service</a>
             </li>
+            <li>
+              <a href="/support" className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">App Support</a>
+            </li>
             <li className="pt-2 border-t border-[var(--border)]">
               <span className="text-[11px] block text-[var(--text)] opacity-70 font-bold uppercase mb-1">PROUDLY DEVELOPED BY</span>
               <span className="text-sm font-extrabold text-[var(--text)]">
@@ -164,6 +167,8 @@ export default function Footer({ route }: { route: RouteDef }) {
             <a href="/privacy" className="hover:text-brand-red">Privacy Policy</a>
             <span aria-hidden="true">•</span>
             <a href="/terms" className="hover:text-brand-red">Terms of Service</a>
+            <span aria-hidden="true">•</span>
+            <a href="/support" className="hover:text-brand-red">Support</a>
             <span aria-hidden="true">•</span>
             <span>Sanepa, Lalitpur, Nepal</span>
           </div>
