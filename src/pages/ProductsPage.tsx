@@ -4,8 +4,8 @@ import { PRODUCTS, SITE, type Lang } from "../seo/content";
 import { solutionHref } from "../seo/routes";
 
 const UI = {
-  en: { cta: "Book a free demo", trial: "Start free trial", view: "View product", soon: "Coming soon", why: "Why one platform", whyText: "Showroom, parts, workshop and used-vehicle teams work on the same customers, stock and reports, so nothing is entered twice and owners see the whole business in one place." },
-  ne: { cta: "निःशुल्क डेमो बुक गर्नुहोस्", trial: "निःशुल्क ट्रायल सुरु गर्नुहोस्", view: "उत्पादन हेर्नुहोस्", soon: "छिट्टै आउँदैछ", why: "किन एउटै प्लेटफर्म", whyText: "शोरूम, पार्टपुर्जा, वर्कसप र पुराना सवारी टोलीले एउटै ग्राहक, स्टक र रिपोर्टमा काम गर्छन्, त्यसैले केही पनि दोहोरो दर्ता हुँदैन र सञ्चालकले पूरा व्यवसाय एकै ठाउँमा देख्छन्।" },
+  en: { cta: "Book a free demo", trial: "Start free trial", view: "View product", interest: "Register interest", soon: "Coming soon", why: "Why one platform", whyText: "Showroom, parts, workshop and used-vehicle teams work on the same customers, stock and reports, so nothing is entered twice and owners see the whole business in one place." },
+  ne: { cta: "निःशुल्क डेमो बुक गर्नुहोस्", trial: "निःशुल्क ट्रायल सुरु गर्नुहोस्", view: "उत्पादन हेर्नुहोस्", interest: "रुचि दर्ता गर्नुहोस्", soon: "छिट्टै आउँदैछ", why: "किन एउटै प्लेटफर्म", whyText: "शोरूम, पार्टपुर्जा, वर्कसप र पुराना सवारी टोलीले एउटै ग्राहक, स्टक र रिपोर्टमा काम गर्छन्, त्यसैले केही पनि दोहोरो दर्ता हुँदैन र सञ्चालकले पूरा व्यवसाय एकै ठाउँमा देख्छन्।" },
 };
 
 /** /products, /ne/products and the Nepali home (/ne): the MotoCore product line. */
@@ -38,11 +38,9 @@ export default function ProductsPage({ lang, hub }: { lang: Lang; hub: { eyebrow
                   <span className={`inline-block rounded-full px-2.5 py-1 text-[11px] font-semibold ${p.soon ? "bg-[var(--border)] text-[var(--text)]/70" : "bg-[var(--accent)]/10 text-[var(--accent)]"}`}>{p.tag[lang]}</span>
                   <h2 className="mt-3 font-display text-xl font-bold">{p.name}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--text)]/70">{p.text[lang]}</p>
-                  {!p.soon && (
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)]">
-                      {t.view} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                    </span>
-                  )}
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)]">
+                    {p.soon ? t.interest : t.view} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </span>
                 </>
               );
               return (

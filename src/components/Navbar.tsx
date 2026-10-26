@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Sun, Moon, Menu, X, ArrowRight } from "lucide-react";
 import Logo from "./Logo";
-import { SOLUTION_LABELS } from "../seo/content";
-import { solutionHref, type RouteDef } from "../seo/routes";
+import { ProductsMenu, ProductsMenuList } from "./ProductsMenu";
+import type { RouteDef } from "../seo/routes";
 
 interface NavbarProps {
   route: RouteDef;
@@ -24,8 +24,6 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
   // Home-page sections are linked as /#section from the landing pages; every page has its own #contact
   const section = (hash: string) => (isHome || hash === "#contact" ? hash : `/${hash}`);
   const navLinks = [
-    { label: ne ? "उत्पादन" : "Products", href: solutionHref("products", route.lang) },
-    { label: SOLUTION_LABELS[route.lang]["bike-showroom-software"], href: solutionHref("bike-showroom-software", route.lang) },
     { label: ne ? "अफर" : "Offer", href: ne ? "/#early-launch-offer" : section("#early-launch-offer") },
     { label: ne ? "ब्लग" : "Blog", href: "/blog" },
     { label: ne ? "सम्पर्क" : "Contact", href: "#contact" }
@@ -88,6 +86,7 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
+            <ProductsMenu lang={route.lang} />
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -159,6 +158,7 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
         {isMobileMenuOpen && (
           <div className="lg:hidden absolute top-28 left-0 w-full bg-[var(--bg)] border-b border-[var(--border)] py-6 px-6 shadow-xl transition-all duration-300 ease-in-out">
             <div className="flex flex-col space-y-4">
+              <ProductsMenuList lang={route.lang} onNavigate={() => setIsMobileMenuOpen(false)} />
               {navLinks.map((link) => (
                 <a
                   key={link.label}

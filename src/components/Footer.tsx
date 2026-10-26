@@ -103,7 +103,6 @@ export default function Footer({ route }: { route: RouteDef }) {
                 </a>
               </li>
             ))}
-            <li className="text-sm text-[var(--text)] opacity-70 font-semibold">MotoCore Car <span className="text-xs">({route.lang === "ne" ? "छिट्टै" : "coming soon"})</span></li>
           </ul>
         </div>
 

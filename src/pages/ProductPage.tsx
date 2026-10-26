@@ -90,9 +90,9 @@ export default function ProductPage({ page }: { page: PageContent }) {
         <section className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16">
             <h2 className="font-display text-2xl sm:text-3xl font-bold">{page.shots.heading}</h2>
-            <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            <div className={`mt-8 grid gap-6 ${page.shots.items.some((s) => s.phone) ? "lg:grid-cols-3" : "md:grid-cols-3"}`}>
               {page.shots.items.map((s, i) => (
-                <figure key={s.src} className={s.phone ? "lg:row-span-2 lg:col-start-3 lg:row-start-1" : i === 0 ? "lg:col-span-2" : "lg:col-span-2"}>
+                <figure key={s.src} className={s.phone ? "lg:row-span-2 lg:col-start-3 lg:row-start-1" : page.shots!.items.some((x) => x.phone) ? "lg:col-span-2" : i === 0 ? "md:col-span-3" : ""}>
                   <div className={`overflow-hidden rounded-xl border border-[var(--border)] bg-white shadow-sm ${s.phone ? "mx-auto max-w-[300px] rounded-[2rem] border-4" : ""}`}>
                     <img src={s.src} alt={s.alt} width={s.width} height={s.height} loading={i === 0 ? "eager" : "lazy"} decoding="async" className="block h-auto w-full" />
                   </div>

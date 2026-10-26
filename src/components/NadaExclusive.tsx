@@ -8,7 +8,7 @@ export default function NadaExclusive() {
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-red-900/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-red-900/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col xl:flex-row items-center justify-between gap-16">
           
           {/* Left Content */}

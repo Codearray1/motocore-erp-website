@@ -23,9 +23,9 @@ export const ROUTES: RouteDef[] = [
     path: "/",
     lang: "en",
     kind: "home",
-    title: "MotoCore ERP | Automobile Management Software in Nepal",
+    title: "MotoCore | Automobile ERP & Showroom Management Software Nepal",
     description:
-      "All-in-one automobile management software built in Nepal: MotoCore Bike for showrooms, Parts, Workshop and Recon-Lite for used vehicles. Book a free demo.",
+      "All-in-one automobile ERP built in Nepal: showroom management (MotoCore Bike), spare parts inventory, workshop management and used vehicle software. Free demo.",
     alternates: { en: "/", ne: "/ne" },
   },
   {

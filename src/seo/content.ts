@@ -6,6 +6,18 @@ import bikeInquiries from "../assets/products/bike-inquiries.webp";
 import bikeBookings from "../assets/products/bike-bookings.webp";
 import bikeAllocation from "../assets/products/bike-allocation.webp";
 import bikeMobile from "../assets/products/bike-mobile-dashboard.webp";
+import partsProDashboard from "../assets/products/parts-pro-dashboard.webp";
+import partsInventory from "../assets/products/parts-inventory.webp";
+import partsCatalogue from "../assets/products/parts-catalogue.webp";
+import partsCounterSale from "../assets/products/parts-counter-sale.webp";
+import workshopJobCards from "../assets/products/workshop-job-cards.webp";
+import workshopDashboard from "../assets/products/workshop-dashboard.webp";
+import workshopEstimates from "../assets/products/workshop-estimates.webp";
+import workshopCustomers from "../assets/products/workshop-customers.webp";
+import reconDashboard from "../assets/products/recon-dashboard.webp";
+import reconProfitability from "../assets/products/recon-profitability.webp";
+import reconStock from "../assets/products/recon-stock.webp";
+import reconCrm from "../assets/products/recon-crm.webp";
 
 export type Lang = "en" | "ne";
 
@@ -60,6 +72,7 @@ export interface PageContent {
   steps?: { heading: string; items: string[] };
   faq: { q: string; a: string }[];
   app: { name: string; os: string; category: string };
+  soon?: boolean; // not released yet: no SoftwareApplication schema
 }
 
 export const SITE = {
@@ -86,6 +99,40 @@ const trialEn: Cta = { label: "Start free trial", href: SITE.register, external:
 const trialNe: Cta = { label: "निःशुल्क ट्रायल सुरु गर्नुहोस्", href: SITE.register, external: true };
 const callEn: Cta = { label: "Call +977 9863473651", href: SITE.phoneHref };
 const callNe: Cta = { label: "फोन: +९७७ ९८६३४७३६५१", href: SITE.phoneHref };
+
+// Screenshots from the MotoCore platform with demo data, 1600x900
+type ShotDef = [src: string, en: [alt: string, caption: string], ne: [alt: string, caption: string]];
+const gallery = (lang: Lang, heading: Record<Lang, string>, defs: ShotDef[]) => ({
+  heading: heading[lang],
+  items: defs.map(([src, en, ne]): Shot => {
+    const [alt, caption] = lang === "ne" ? ne : en;
+    return { src, width: 1600, height: 900, alt, caption };
+  }),
+});
+
+const partsShots = (lang: Lang) =>
+  gallery(lang, { en: "A look inside MotoCore Parts", ne: "MotoCore Parts भित्र हेर्नुहोस्" }, [
+    [partsProDashboard, ["MotoCore Parts Pro dashboard", "Parts Pro dashboard: inventory value, sales, gross profit, receivables and stock health."], ["MotoCore Parts Pro ड्यासबोर्ड", "Parts Pro ड्यासबोर्ड: स्टक मूल्य, बिक्री, नाफा, पाउनुपर्ने रकम र स्टकको अवस्था।"]],
+    [partsInventory, ["Inventory overview in MotoCore Parts", "Inventory overview across warehouses, racks and bins."], ["MotoCore Parts स्टक सारांश", "गोदाम, र्‍याक र बिनअनुसार स्टक सारांश।"]],
+    [partsCatalogue, ["Parts catalogue in MotoCore Parts", "Parts catalogue with stock, prices and barcode import."], ["MotoCore Parts पार्ट सूची", "स्टक, मूल्य र बारकोड आयातसहित पार्ट सूची।"]],
+    [partsCounterSale, ["Counter sale with barcode scanning", "Counter sales with barcode scanning (Parts Pro)."], ["बारकोड स्क्यानसहित काउन्टर बिक्री", "बारकोड स्क्यानसहित काउन्टर बिक्री (Parts Pro)।"]],
+  ]);
+
+const workshopShots = (lang: Lang) =>
+  gallery(lang, { en: "A look inside MotoCore Workshop", ne: "MotoCore Workshop भित्र हेर्नुहोस्" }, [
+    [workshopJobCards, ["Job card pipeline in MotoCore Workshop", "Every job card by stage: inspection, diagnosis, approval, parts, repair, washing and QC."], ["MotoCore Workshop जब कार्ड", "हरेक जब कार्ड चरणअनुसार: निरीक्षण, निदान, स्वीकृति, पार्ट, मर्मत, धुलाइ र QC।"]],
+    [workshopDashboard, ["MotoCore Workshop dashboard", "Workshop dashboard: live work by stage, technicians and bays."], ["MotoCore Workshop ड्यासबोर्ड", "वर्कसप ड्यासबोर्ड: चरणअनुसार काम, प्राविधिक र बे।"]],
+    [workshopEstimates, ["Estimates and quotations in MotoCore Workshop", "Estimates and quotations waiting for customer approval."], ["MotoCore Workshop इस्टिमेट", "ग्राहक स्वीकृति कुरिरहेका इस्टिमेट र कोटेसन।"]],
+    [workshopCustomers, ["Workshop customers in MotoCore Workshop", "Customers with their vehicles, open jobs and outstanding balance."], ["MotoCore Workshop ग्राहक", "ग्राहक, उनका सवारी, खुला काम र बाँकी रकम।"]],
+  ]);
+
+const reconShots = (lang: Lang) =>
+  gallery(lang, { en: "A look inside MotoCore Recon-Lite", ne: "MotoCore Recon-Lite भित्र हेर्नुहोस्" }, [
+    [reconDashboard, ["MotoCore Recon-Lite control centre", "Control centre: sales, valuations, follow-ups and what needs attention today."], ["MotoCore Recon-Lite नियन्त्रण केन्द्र", "नियन्त्रण केन्द्र: बिक्री, मूल्याङ्कन, फलोअप र आज ध्यान दिनुपर्ने काम।"]],
+    [reconProfitability, ["Profitability per used vehicle", "Realised profit per vehicle: sale price, landed cost and extra costs."], ["प्रति सवारी नाफा", "प्रति सवारी नाफा: बिक्री मूल्य, खरिद लागत र थप खर्च।"]],
+    [reconStock, ["Used vehicle stock in MotoCore Recon-Lite", "Stock with readiness, age and expected margin for every vehicle."], ["MotoCore Recon-Lite स्टक", "हरेक सवारीको तयारी, उमेर र अपेक्षित नाफासहित स्टक।"]],
+    [reconCrm, ["Buyer and seller CRM in MotoCore Recon-Lite", "CRM: buyer and seller inquiries matched to available stock."], ["MotoCore Recon-Lite CRM", "CRM: किन्ने र बेच्ने सोधपुछ उपलब्ध स्टकसँग मिलाइन्छ।"]],
+  ]);
 
 const bikeShots = (lang: Lang): { heading: string; items: Shot[] } => {
   const ne = lang === "ne";
@@ -131,11 +178,11 @@ const bikeEn: PageContent = {
   slug: "bike-showroom-software",
   lang: "en",
   product: "MotoCore Bike",
-  title: "Bike Showroom Software in Nepal | MotoCore Bike",
+  title: "Bike Showroom Management Software in Nepal | MotoCore Bike",
   description:
-    "MotoCore Bike is bike showroom software for motorcycle, scooter and EV dealers in Nepal: inquiries, bookings, VIN stock, delivery, namsari, collections and refunds.",
-  eyebrow: "MotoCore Bike · two-wheeler dealer management software",
-  h1: "Bike showroom software for motorcycle, scooter and EV dealers",
+    "MotoCore Bike is a showroom management system for motorcycle, scooter and EV dealers in Nepal: inquiries, bookings, VIN stock, delivery, namsari and collections.",
+  eyebrow: "MotoCore Bike · showroom management system for two-wheeler dealers",
+  h1: "Bike showroom management software for motorcycle, scooter and EV dealers",
   intro:
     "MotoCore Bike runs a two-wheeler dealership from the first walk-in to the bill book: inquiries and follow-ups, bookings and receipts, VIN-wise stock, allocation, sale documents, challan and delivery, namsari tracking, collections and refunds. It is built for showrooms in Nepal, with NPR amounts, Nepali fiscal years and a mobile app for your sales team.",
   ctas: [demoEn, callEn],
@@ -186,6 +233,7 @@ const bikeEn: PageContent = {
     ],
   },
   faq: [
+    { q: "Is MotoCore Bike a showroom management system?", a: "Yes. MotoCore Bike is a complete showroom management system for two-wheeler dealers: inquiries, follow-ups, bookings, VIN-wise stock, allocation, delivery, namsari, collections, discounts and refunds, with owner dashboards and a mobile app." },
     { q: "Which dealers is MotoCore Bike for?", a: "Motorcycle, scooter and electric two-wheeler showrooms and sub-dealers in Nepal, from a single outlet to several branches." },
     { q: "Does it work on mobile phones?", a: "Yes. The web app works on any device, and there are Android and iOS apps for sales staff, with push notifications." },
     { q: "Is it accounting software?", a: "No. MotoCore Bike manages your showroom's finances and collections: receipts, receivables, refunds, claims and deal profitability. It does not replace your accounting or IRD billing software." },
@@ -294,6 +342,7 @@ const partsEn: PageContent = {
   intro:
     "Know what is in every warehouse and what needs reordering. MotoCore Parts tracks spare parts stock across locations, flags items below their reorder level and runs procurement from purchase request to goods received. Choose Parts Lite for the essentials or Parts Pro for barcode scanning and analytics.",
   ctas: [trialEn, demoEn],
+  shots: partsShots("en"),
   tiers: partsTiers("en"),
   groups: [
     {
@@ -328,6 +377,7 @@ const partsNe: PageContent = {
   intro:
     "कुन गोदाममा के छ र के पुनः अर्डर गर्नुपर्छ, तुरुन्तै थाहा पाउनुहोस्। MotoCore Parts ले सबै स्थानको पार्टपुर्जा मौज्दात ट्र्याक गर्छ, पुनः अर्डर तहभन्दा कम भएका सामान देखाउँछ र खरिद मागदेखि सामान प्राप्तिसम्मको प्रक्रिया चलाउँछ। आधारभूत कामका लागि Parts Lite, बारकोड र विश्लेषणका लागि Parts Pro रोज्नुहोस्।",
   ctas: [trialNe, demoNe],
+  shots: partsShots("ne"),
   tiers: partsTiers("ne"),
   groups: [
     {
@@ -354,7 +404,7 @@ const workshopEn: PageContent = {
   slug: "workshop-management-software",
   lang: "en",
   product: "MotoCore Workshop",
-  title: "Workshop & Service Center Software in Nepal | MotoCore",
+  title: "Workshop Management Software in Nepal | MotoCore Workshop",
   description:
     "MotoCore Workshop: workshop management software for vehicle service centres — job cards, technician scheduling, labour and service tracking, linked to parts inventory.",
   eyebrow: "MotoCore Workshop",
@@ -362,6 +412,7 @@ const workshopEn: PageContent = {
   intro:
     "Run your workshop on job cards instead of paper. MotoCore Workshop tracks every vehicle from arrival to handover, schedules technicians, records labour and shows the status of every service, while parts are drawn from the same inventory your stores team manages in MotoCore Parts.",
   ctas: [trialEn, demoEn],
+  shots: workshopShots("en"),
   groups: [
     {
       heading: "Workshop features",
@@ -394,6 +445,7 @@ const workshopNe: PageContent = {
   intro:
     "कागजको सट्टा जब कार्डमा वर्कसप चलाउनुहोस्। MotoCore Workshop ले हरेक सवारी आएदेखि हस्तान्तरणसम्म ट्र्याक गर्छ, प्राविधिकको तालिका बनाउँछ, श्रम रेकर्ड गर्छ र हरेक सर्भिसको अवस्था देखाउँछ; पार्टपुर्जा भने MotoCore Parts मा स्टोर टोलीले व्यवस्थापन गर्ने उही स्टकबाट जान्छ।",
   ctas: [trialNe, demoNe],
+  shots: workshopShots("ne"),
   groups: [
     {
       heading: "वर्कसपका सुविधा",
@@ -418,7 +470,7 @@ const reconEn: PageContent = {
   slug: "used-vehicle-reconditioning-software",
   lang: "en",
   product: "MotoCore Recon-Lite",
-  title: "Used Vehicle Reconditioning Software | MotoCore Recon-Lite",
+  title: "Used Vehicle & Recondition Software in Nepal | MotoCore Recon-Lite",
   description:
     "MotoCore Recon-Lite: used vehicle dealer software for valuation, acquisition tracking, reconditioning, stock and profit per vehicle. 15-day free trial.",
   eyebrow: "MotoCore Recon-Lite",
@@ -426,6 +478,7 @@ const reconEn: PageContent = {
   intro:
     "Buy right, recondition on budget and know your profit on every vehicle. MotoCore Recon-Lite tracks each used vehicle from valuation and acquisition through reconditioning to sale.",
   ctas: [trialEn, demoEn],
+  shots: reconShots("en"),
   groups: [
     {
       heading: "Used vehicle features",
@@ -457,6 +510,7 @@ const reconNe: PageContent = {
   intro:
     "सही मूल्यमा किन्नुहोस्, बजेटमै मर्मत गर्नुहोस् र हरेक सवारीको नाफा थाहा पाउनुहोस्। MotoCore Recon-Lite ले हरेक पुरानो सवारी मूल्याङ्कन र खरिददेखि रिकन्डिसनिङ हुँदै बिक्रीसम्म ट्र्याक गर्छ।",
   ctas: [trialNe, demoNe],
+  shots: reconShots("ne"),
   groups: [
     {
       heading: "पुरानो सवारीका सुविधा",
@@ -476,9 +530,73 @@ const reconNe: PageContent = {
   app: { name: "MotoCore Recon-Lite", os: "Web", category: "BusinessApplication" },
 };
 
-export const PRODUCT_PAGES: PageContent[] = [bikeEn, partsEn, workshopEn, reconEn, bikeNe, partsNe, workshopNe, reconNe];
+const interestEn: Cta = { label: "Register your interest", href: "#contact" };
+const interestNe: Cta = { label: "रुचि दर्ता गर्नुहोस्", href: "#contact" };
 
-/** The MotoCore product line, in display order. `slug` is null for a product that has no page yet. */
+const carEn: PageContent = {
+  slug: "car-showroom-software",
+  lang: "en",
+  product: "MotoCore Car",
+  soon: true,
+  title: "Car Showroom Software in Nepal (Coming Soon) | MotoCore Car",
+  description:
+    "MotoCore Car brings MotoCore's dealer management to four-wheeler showrooms in Nepal. Coming soon: register your interest for early access.",
+  eyebrow: "MotoCore Car · coming soon",
+  h1: "Car showroom software for Nepal, coming soon",
+  intro:
+    "MotoCore Car brings the MotoCore approach to four-wheeler dealers, on the same platform as MotoCore Bike, Parts, Workshop and Recon-Lite. It is in development now. Register your interest and we will contact you when early access opens.",
+  ctas: [interestEn, callEn],
+  groups: [
+    {
+      heading: "Already available for car businesses",
+      intro: "While MotoCore Car is being built, these MotoCore products already work for four-wheeler businesses:",
+      items: [
+        { title: "MotoCore Workshop", text: "Job cards, technician scheduling, labour and service tracking for car service centres, linked to parts stock." },
+        { title: "MotoCore Parts", text: "Spare parts inventory and procurement across warehouses. Parts Pro adds barcode scanning and analytics." },
+        { title: "MotoCore Recon-Lite", text: "Valuation, acquisition, reconditioning cost and profit for every used car you buy and sell." },
+      ],
+    },
+  ],
+  faq: [
+    { q: "When will MotoCore Car launch?", a: "MotoCore Car is in development. Customers who register their interest hear about early access first." },
+    { q: "Can I use MotoCore for my car workshop or parts business today?", a: "Yes. MotoCore Workshop, MotoCore Parts and MotoCore Recon-Lite are available now and work for four-wheeler businesses." },
+  ],
+  app: { name: "MotoCore Car", os: "Web", category: "BusinessApplication" },
+};
+
+const carNe: PageContent = {
+  slug: "car-showroom-software",
+  lang: "ne",
+  product: "MotoCore Car",
+  soon: true,
+  title: "कार शोरूम सफ्टवेयर नेपाल (छिट्टै) | MotoCore Car",
+  description: "MotoCore Car: नेपालका चारपाङ्ग्रे सवारी शोरूमका लागि डिलर व्यवस्थापन। छिट्टै आउँदैछ, प्रारम्भिक पहुँचका लागि रुचि दर्ता गर्नुहोस्।",
+  eyebrow: "MotoCore Car · छिट्टै आउँदैछ",
+  h1: "नेपालका लागि कार शोरूम सफ्टवेयर, छिट्टै",
+  intro:
+    "MotoCore Car ले MotoCore Bike, Parts, Workshop र Recon-Lite कै प्लेटफर्ममा चारपाङ्ग्रे सवारी डिलरलाई MotoCore ल्याउँछ। यो अहिले विकासमा छ। रुचि दर्ता गर्नुहोस्, प्रारम्भिक पहुँच खुल्दा हामी सम्पर्क गर्नेछौं।",
+  ctas: [interestNe, callNe],
+  groups: [
+    {
+      heading: "कार व्यवसायका लागि अहिले नै उपलब्ध",
+      intro: "MotoCore Car तयार हुँदै गर्दा यी MotoCore उत्पादन चारपाङ्ग्रे व्यवसायमा अहिले नै चल्छन्:",
+      items: [
+        { title: "MotoCore Workshop", text: "कार सर्भिस सेन्टरका लागि जब कार्ड, प्राविधिक तालिका, श्रम र सर्भिस ट्र्याकिङ, पार्टपुर्जा स्टकसँग जोडिएको।" },
+        { title: "MotoCore Parts", text: "धेरै गोदामको पार्टपुर्जा स्टक र खरिद। Parts Pro मा बारकोड र विश्लेषण थपिन्छ।" },
+        { title: "MotoCore Recon-Lite", text: "किनबेच गर्ने हरेक पुरानो कारको मूल्याङ्कन, खरिद, मर्मत लागत र नाफा।" },
+      ],
+    },
+  ],
+  faq: [
+    { q: "MotoCore Car कहिले सुरु हुन्छ?", a: "MotoCore Car विकासमा छ। रुचि दर्ता गर्ने ग्राहकले प्रारम्भिक पहुँचको जानकारी पहिले पाउँछन्।" },
+    { q: "मेरो कार वर्कसप वा पार्टपुर्जा व्यवसायमा अहिले नै MotoCore चलाउन सकिन्छ?", a: "सकिन्छ। MotoCore Workshop, MotoCore Parts र MotoCore Recon-Lite अहिले उपलब्ध छन् र चारपाङ्ग्रे व्यवसायमा पनि चल्छन्।" },
+  ],
+  app: { name: "MotoCore Car", os: "Web", category: "BusinessApplication" },
+};
+
+export const PRODUCT_PAGES: PageContent[] = [bikeEn, partsEn, workshopEn, reconEn, carEn, bikeNe, partsNe, workshopNe, reconNe, carNe];
+
+/** The MotoCore product line, in display order. */
 export const PRODUCTS: { key: string; slug: string | null; name: string; soon?: boolean; tag: Record<Lang, string>; text: Record<Lang, string> }[] = [
   {
     key: "bike",
@@ -510,7 +628,7 @@ export const PRODUCTS: { key: string; slug: string | null; name: string; soon?: 
   },
   {
     key: "car",
-    slug: null,
+    slug: "car-showroom-software",
     name: "MotoCore Car",
     soon: true,
     tag: { en: "Coming soon", ne: "छिट्टै आउँदैछ" },
@@ -526,6 +644,16 @@ export const SOLUTION_LABELS: Record<Lang, Record<string, string>> = {
 };
 
 /** /products and /ne/products. */
+/** Home page FAQ (rendered on / and published as FAQPage structured data). */
+export const HOME_FAQ: { q: string; a: string }[] = [
+  { q: "What is MotoCore?", a: "MotoCore is all-in-one automobile management software (an automobile ERP) built in Nepal. It covers showroom management with MotoCore Bike, spare parts inventory with MotoCore Parts, workshop management with MotoCore Workshop and used vehicle trading with MotoCore Recon-Lite, with MotoCore Car coming soon." },
+  { q: "Which showroom management system is best for bike dealers in Nepal?", a: "Look for a system built around how Nepali showrooms work: inquiries and follow-ups, bookings with receipts, VIN-wise stock, namsari tracking, financier receivables, approved discounts and a mobile app. MotoCore Bike was built for exactly this flow. Book a free demo to see it with your own showroom in mind." },
+  { q: "Do you have workshop management software for service centres?", a: "Yes. MotoCore Workshop handles job cards, inspection, diagnosis, estimates and customer approval, technicians and bays, parts requests and billing readiness, and it is linked to your spare parts stock." },
+  { q: "What is the difference between MotoCore Parts Lite and Parts Pro?", a: "Parts Lite covers day-to-day spare parts inventory, purchasing and counter sales across warehouses. Parts Pro adds barcode scanning and analytics such as the Parts Pro dashboard and inventory intelligence." },
+  { q: "Is MotoCore cloud-based?", a: "Yes. MotoCore runs in the browser, so there is nothing to install on your computers, and MotoCore Bike also has Android and iOS apps. Each business's data is kept separate." },
+  { q: "Is MotoCore accounting or IRD billing software?", a: "MotoCore manages sales, stock, workshops, collections and receivables for automobile businesses. It is not a statutory accounting ledger or IRD-approved billing software, so keep using your accountant's system for the books and VAT returns." },
+];
+
 export const PRODUCTS_PAGE: Record<Lang, { title: string; description: string; eyebrow: string; h1: string; intro: string }> = {
   en: {
     title: "MotoCore Products | Automobile Management Software in Nepal",

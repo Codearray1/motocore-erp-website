@@ -81,6 +81,7 @@ export const PRIVACY: LegalDoc = {
           "Contabo GmbH (Germany): servers and databases for the MotoCore platform and MotoCore Bike.",
           "Vercel Inc.: hosting of this website and its contact form.",
           "Railway Corp. (United States): the system that receives website enquiries as sales leads.",
+          "Upstash, Inc. (through Vercel): a database that keeps a copy of website enquiries for our team's admin page.",
           "Google LLC: Gmail for enquiry emails, Google Firebase Cloud Messaging for push notifications, and Google Maps and Google Fonts on this website (these may receive your IP address).",
           "Apple Inc. and Google LLC: delivery of push notifications to iOS and Android devices.",
         ],

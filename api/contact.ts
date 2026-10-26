@@ -1,5 +1,12 @@
 import nodemailer from "nodemailer";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { randomUUID } from "node:crypto";
+import { saveLead, storeConfigured } from "./_lib/store.js";
+
+// Form values go into HTML emails: escape them so a visitor cannot inject markup or links
+const esc = (v: unknown) =>
+  String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
+const clip = (v: unknown, n: number) => String(v ?? "").trim().slice(0, n);
 
 const ERP_API_URL =
   process.env.ERP_API_URL ||
@@ -77,22 +84,43 @@ export default async function handler(
   }
 
   try {
-    const {
-      name,
-      email,
-      phone,
-      companySize,
-      businessName,
-      businessType,
-      formType,
-      message,
-    } = req.body;
+    const body = req.body || {};
+    const name = clip(body.name, 120);
+    const email = clip(body.email, 200);
+    const phone = clip(body.phone, 40);
+    const companySize = clip(body.companySize, 80);
+    const businessName = clip(body.businessName, 160);
+    const businessType = clip(body.businessType, 80);
+    const formType = clip(body.formType, 40);
+    const message = clip(body.message, 5000);
 
     if (!name || !email || !phone) {
       return res.status(400).json({
         success: false,
         message: "Name, email, and phone are required",
       });
+    }
+
+    // Keep a copy for the website admin (/admin → Enquiries) when lead storage is connected
+    let storeSucceeded = false;
+    if (storeConfigured()) {
+      try {
+        await saveLead({
+          id: randomUUID(),
+          createdAt: new Date().toISOString(),
+          status: "new",
+          formType: formType || "contact",
+          name,
+          email,
+          phone,
+          businessName,
+          businessType: businessType || companySize,
+          message,
+        });
+        storeSucceeded = true;
+      } catch (storeError) {
+        console.error("LEAD STORE ERROR:", storeError);
+      }
     }
 
     let erpSyncSucceeded = false;
@@ -127,7 +155,7 @@ export default async function handler(
         from: `"MotoCore ERP Website" <${process.env.GMAIL_USER}>`,
         to: "motocorenepal@gmail.com",
         replyTo: email,
-        subject: `🚀 MotoCore Lead | ${name} | ${
+        subject: `🚀 MotoCore Lead | ${name.replace(/[\r\n]/g, " ")} | ${
           businessType || companySize || "General"
         }`,
         html: `
@@ -139,31 +167,31 @@ export default async function handler(
               <table style="border-collapse:collapse; width:100%; margin-top:20px;">
                 <tr>
                   <td style="padding:12px; font-weight:bold; border-bottom:1px solid #eee;">Name</td>
-                  <td style="padding:12px; border-bottom:1px solid #eee;">${name}</td>
+                  <td style="padding:12px; border-bottom:1px solid #eee;">${esc(name)}</td>
                 </tr>
                 <tr>
                   <td style="padding:12px; font-weight:bold; border-bottom:1px solid #eee;">Email</td>
-                  <td style="padding:12px; border-bottom:1px solid #eee;">${email}</td>
+                  <td style="padding:12px; border-bottom:1px solid #eee;">${esc(email)}</td>
                 </tr>
                 <tr>
                   <td style="padding:12px; font-weight:bold; border-bottom:1px solid #eee;">Phone</td>
-                  <td style="padding:12px; border-bottom:1px solid #eee;">${phone}</td>
+                  <td style="padding:12px; border-bottom:1px solid #eee;">${esc(phone)}</td>
                 </tr>
                 <tr>
                   <td style="padding:12px; font-weight:bold; border-bottom:1px solid #eee;">Business Name</td>
-                  <td style="padding:12px; border-bottom:1px solid #eee;">${businessName || "Not specified"}</td>
+                  <td style="padding:12px; border-bottom:1px solid #eee;">${esc(businessName || "Not specified")}</td>
                 </tr>
                 <tr>
                   <td style="padding:12px; font-weight:bold; border-bottom:1px solid #eee;">Business Type</td>
-                  <td style="padding:12px; border-bottom:1px solid #eee;">${businessType || companySize || "Not specified"}</td>
+                  <td style="padding:12px; border-bottom:1px solid #eee;">${esc(businessType || companySize || "Not specified")}</td>
                 </tr>
                 <tr>
                   <td style="padding:12px; font-weight:bold; border-bottom:1px solid #eee;">Form Type</td>
-                  <td style="padding:12px; border-bottom:1px solid #eee;">${formType || "contact"}</td>
+                  <td style="padding:12px; border-bottom:1px solid #eee;">${esc(formType || "contact")}</td>
                 </tr>
                 <tr>
                   <td style="padding:12px; font-weight:bold; border-bottom:1px solid #eee;">Message</td>
-                  <td style="padding:12px; border-bottom:1px solid #eee;">${message || "No message provided"}</td>
+                  <td style="padding:12px; border-bottom:1px solid #eee;">${esc(message || "No message provided").replace(/\n/g, "<br>")}</td>
                 </tr>
               </table>
 
@@ -193,7 +221,7 @@ export default async function handler(
               <div style="max-width:700px; margin:auto; background:#ffffff; padding:28px; border-radius:12px; border:1px solid #eeeeee;">
                 <h2 style="color:#E30613;">Thank You for Contacting MotoCore ERP</h2>
 
-                <p>Dear ${displayName},</p>
+                <p>Dear ${esc(displayName)},</p>
 
                 <p>
                   Your inquiry has been submitted successfully.
@@ -227,7 +255,7 @@ export default async function handler(
       }
     }
 
-    if (!emailSucceeded && !erpSyncSucceeded) {
+    if (!emailSucceeded && !erpSyncSucceeded && !storeSucceeded) {
       return res.status(500).json({
         success: false,
         message: "Failed to send inquiry",

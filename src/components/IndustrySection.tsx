@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
 import { INDUSTRY_BENEFITS } from "../data";
-import bikeDashboard from "../assets/products/bike-dashboard.webp";
+import workshopJobCards from "../assets/products/workshop-job-cards.webp";
 
 export default function IndustrySection() {
   return (
@@ -23,23 +23,23 @@ export default function IndustrySection() {
               className="relative border border-[var(--border)] rounded-[2rem] overflow-hidden shadow-2xl"
             >
               <img
-                src={bikeDashboard}
-                alt="MotoCore Bike owner dashboard with inquiries, bookings, stock and collections"
+                src={workshopJobCards}
+                alt="MotoCore Workshop job cards by stage, from inspection to quality check"
                 width={1600}
-                height={844}
+                height={900}
                 loading="lazy"
                 decoding="async"
                 className="w-full h-auto object-contain bg-white select-none"
               />
               
               {/* Premium overlay badge representing modern cloud infrastructure */}
-              <div className="absolute bottom-6 left-6 right-6 bg-brand-black/80 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex items-center justify-between">
+              <div className="absolute bottom-6 left-6 right-6 bg-black/75 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] uppercase font-bold tracking-widest text-[#E30613] mb-1">
-                    DEPLOYMENT
+                    One platform
                   </p>
                   <p className="text-sm font-bold text-white tracking-tight">
-                    Cloud-based · runs in the browser
+                    Showroom · parts · workshop · used vehicles
                   </p>
                 </div>
                 <div className="flex items-center space-x-1">

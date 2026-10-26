@@ -1,4 +1,4 @@
-import { PRODUCTS, SITE } from "./content";
+import { HOME_FAQ, PRODUCTS, SITE } from "./content";
 import { absolute, solutionHref, type RouteDef } from "./routes";
 import { BLOG, POSTS } from "./blog";
 
@@ -65,7 +65,14 @@ export function headHtml(r: RouteDef): string {
     });
 
   if (r.kind === "home") {
-    tags.push(ld({ "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: `${SITE.origin}/`, inLanguage: r.lang, publisher: { "@id": ORG_ID } }));
+    tags.push(
+      ld({ "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: `${SITE.origin}/`, inLanguage: r.lang, publisher: { "@id": ORG_ID } }),
+      ld({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: HOME_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+      }),
+    );
   }
   if (r.kind === "products") {
     tags.push(
@@ -80,7 +87,7 @@ export function headHtml(r: RouteDef): string {
   }
   const p = r.page;
   if (r.kind === "product" && p) {
-    tags.push(
+    if (!p.soon) tags.push(
       ld({
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -92,6 +99,8 @@ export function headHtml(r: RouteDef): string {
         inLanguage: p.lang,
         publisher: { "@id": ORG_ID },
       }),
+    );
+    tags.push(
       ld({
         "@context": "https://schema.org",
         "@type": "FAQPage",

@@ -14,6 +14,8 @@ import ProductsPage from "./pages/ProductsPage";
 import LegalPage from "./pages/LegalPage";
 import ProductStrip from "./components/ProductStrip";
 import LatestPosts from "./components/LatestPosts";
+import FeaturedBike from "./components/FeaturedBike";
+import HomeFaq from "./components/HomeFaq";
 import { BlogArticle, BlogIndex } from "./pages/BlogPage";
 import type { RouteDef } from "./seo/routes";
 
@@ -99,6 +101,9 @@ export default function App({ route }: { route: RouteDef }) {
         {/* The MotoCore product line */}
         <ProductStrip />
 
+        {/* Featured product: MotoCore Bike */}
+        <FeaturedBike />
+
         {/* Early launch offer (Parts, Workshop, Recon-Lite) */}
         <NadaExclusive />
 
@@ -110,6 +115,8 @@ export default function App({ route }: { route: RouteDef }) {
 
         {/* Newest blog posts */}
         <LatestPosts />
+
+        <HomeFaq />
 
         {/* Priority registration block */}
         <EarlyAccess />
