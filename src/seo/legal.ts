@@ -8,7 +8,7 @@ export interface LegalSection {
 }
 
 export interface LegalDoc {
-  slug: "privacy" | "terms" | "support";
+  slug: "privacy" | "terms" | "support" | "delete-account";
   title: string;
   description: string;
   h1: string;
@@ -309,7 +309,7 @@ export const SUPPORT: LegalDoc = {
       heading: "Accounts and deleting your data",
       body: [
         "Staff accounts are created and managed by each company's Owner. An Owner can deactivate a user at any time, which signs that user out of every device.",
-        `To delete your account and personal data, ask your company's Owner, or email ${SUPPORT_EMAIL} with the subject "Delete my account", your Company Code and your username. We confirm the request with your company and then delete or anonymise your personal data, except records the law requires the business to keep (for example financial records). See our Privacy Policy for details.`,
+        `To delete your account and personal data, follow the steps at ${SITE.origin}/delete-account: email ${SUPPORT_EMAIL} with the subject "Delete my account", your Company Code and your username.`,
       ],
     },
     {
@@ -317,6 +317,54 @@ export const SUPPORT: LegalDoc = {
       body: [
         "The app sends notifications about bookings, payments and approvals only if you allow them. You can turn them off at any time in your device settings.",
         "Photo library access is used only when you choose an image to upload, such as your company logo.",
+      ],
+    },
+  ],
+};
+
+// The account-deletion request page (Google Play "Delete account URL"; also linked from Support).
+export const DELETE_ACCOUNT: LegalDoc = {
+  slug: "delete-account",
+  title: "Delete your MotoCore account | MotoCore ERP",
+  description: "How to request deletion of your MotoCore Bike account and its personal data, what is deleted, what is kept and for how long.",
+  h1: "Delete your MotoCore account",
+  effective: EFFECTIVE,
+  intro: `This page explains how a user of MotoCore Bike (the MotoCore mobile app for Android, iPhone and iPad, and bike.motocoreerp.com), provided by ${SITE.company}, can request that their account and associated personal data be deleted.`,
+  sections: [
+    {
+      heading: "How to request deletion",
+      body: [
+        [
+          `Email ${SUPPORT_EMAIL} with the subject "Delete my account".`,
+          "Include your Company Code, your username and your full name, and send it from the email address or with the phone number your company has on record for you, so we can confirm the request is yours. Never send your password.",
+          "We confirm the request with you, and with your company's Owner because your account belongs to your company, then delete or anonymise your account within 30 days and email you when it is done.",
+        ],
+        "You can also ask your company's Owner to deactivate your account at any time from Settings > Users; that signs you out of every device immediately. Deactivation alone does not delete your data, so also send the email above if you want it deleted.",
+      ],
+    },
+    {
+      heading: "What is deleted",
+      body: [
+        [
+          "Your user account: your name, email address and phone number are erased, your username is replaced with an anonymous label, and your password (stored only as a one-way hash) is removed so the account can never sign in again.",
+          "Your sessions and the push-notification tokens of your devices.",
+        ],
+      ],
+    },
+    {
+      heading: "What is kept, and for how long",
+      body: [
+        [
+          "Business records you created for your company, such as bookings, receipts, sales and refunds, belong to the company and stay in its account, because the company needs them for its accounts and tax obligations. They are kept while the company's account is active and for up to 90 days after it ends, unless the law requires them to be kept longer.",
+          "Security and audit logs, which record who did what in the account and cannot be edited: normally up to 2 years.",
+          "Backups: overwritten on a rolling basis; deleted data disappears from backups as they are replaced.",
+        ],
+      ],
+    },
+    {
+      heading: "If you are a customer of a dealership",
+      body: [
+        `If a dealership that uses MotoCore holds your details as its customer, please ask that dealership first; it decides how its customer records are kept. You can also email ${SUPPORT_EMAIL} and we will pass your request to the dealership. See our Privacy Policy for more.`,
       ],
     },
   ],

@@ -146,6 +146,9 @@ export default function Footer({ route }: { route: RouteDef }) {
             <li>
               <a href="/support" className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">App Support</a>
             </li>
+            <li>
+              <a href="/delete-account" className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">Delete account</a>
+            </li>
             <li className="pt-2 border-t border-[var(--border)]">
               <span className="text-[11px] block text-[var(--text)] opacity-70 font-bold uppercase mb-1">PROUDLY DEVELOPED BY</span>
               <span className="text-sm font-extrabold text-[var(--text)]">
