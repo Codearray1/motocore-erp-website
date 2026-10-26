@@ -26,37 +26,29 @@ export default function Hero() {
 
           {/* Tagline Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={false}
             className="self-start inline-flex items-center space-x-2 bg-brand-red/[0.08] border border-brand-red/30 px-4 py-2 rounded-full shadow-sm"
           >
             <span className="w-3 h-3 rounded-full bg-brand-red animate-pulse"></span>
             <span className="text-xs font-bold tracking-widest text-brand-red uppercase font-display">
-                MotoCore Recon Lite now available
+                Built in Nepal · Cloud-based
             </span>
           </motion.div>
 
           {/* Primary Typography Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial={false}
             className="text-4xl md:text-5xl font-extrabold tracking-tight font-display text-[var(--text)] leading-[1.1]"
           >
-            Run Your Automotive<br/> Business <span className="text-brand-red relative inline-block underline underline-offset-4">
-  Smarter
-</span> 
+            All-in-one automobile management software for <span className="text-brand-red relative inline-block underline underline-offset-4">Nepal</span>
           </motion.h1>
 
           {/* Subheadline description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            initial={false}
             className="text-base md:text-md text-[var(--text)] opacity-85 max-w-xl leading-relaxed"
           >
-            MotoCore ERP is a complete automotive business management platform designed for dealerships, workshops, service centers, spare parts distributors, used vehicle businesses, and automotive enterprises.
+            MotoCore brings showroom sales, spare parts, workshops and used vehicles into one cloud platform: MotoCore Bike for bike and EV showrooms, MotoCore Parts, MotoCore Workshop and MotoCore Recon-Lite.
           </motion.p>
 
           {/* Discount Slots Progress Bar */}
@@ -90,9 +82,7 @@ export default function Hero() {
 
           {/* Interactive CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={false}
             className="flex flex-col sm:flex-row gap-4 pt-2 w-full max-w-lg"
           >
             <button

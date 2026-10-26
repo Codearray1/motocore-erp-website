@@ -1,14 +1,15 @@
-import { SITE } from "./content";
-import { absolute, type RouteDef } from "./routes";
+import { PRODUCTS, SITE } from "./content";
+import { absolute, solutionHref, type RouteDef } from "./routes";
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 // JSON-LD inside <script>: keep "</script>" from closing the tag early
 const ld = (o: unknown) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, "\\u003c")}</script>`;
 
+const ORG_ID = `${SITE.origin}/#organization`;
 const ORGANIZATION = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": `${SITE.origin}/#organization`,
+  "@id": ORG_ID,
   name: SITE.name,
   legalName: SITE.company,
   url: `${SITE.origin}/`,
@@ -27,9 +28,13 @@ export function headHtml(r: RouteDef): string {
     `<title>${esc(r.title)}</title>`,
     `<meta name="description" content="${esc(r.description)}" />`,
     `<link rel="canonical" href="${url}" />`,
-    `<link rel="alternate" hreflang="en" href="${absolute(r.alternates.en)}" />`,
-    `<link rel="alternate" hreflang="ne" href="${absolute(r.alternates.ne)}" />`,
-    `<link rel="alternate" hreflang="x-default" href="${absolute(r.alternates.en)}" />`,
+    ...(r.alternates
+      ? [
+          `<link rel="alternate" hreflang="en" href="${absolute(r.alternates.en)}" />`,
+          `<link rel="alternate" hreflang="ne" href="${absolute(r.alternates.ne)}" />`,
+          `<link rel="alternate" hreflang="x-default" href="${absolute(r.alternates.en)}" />`,
+        ]
+      : []),
     `<meta name="robots" content="index, follow, max-image-preview:large" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${SITE.name}" />`,
@@ -46,11 +51,33 @@ export function headHtml(r: RouteDef): string {
     `<meta name="twitter:image" content="${image}" />`,
     ld(ORGANIZATION),
   ];
+  const home = absolute(r.lang === "ne" ? "/ne" : "/");
+  const crumbs = (name: string) =>
+    ld({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: SITE.name, item: home },
+        { "@type": "ListItem", position: 2, name, item: url },
+      ],
+    });
+
   if (r.kind === "home") {
-    tags.push(ld({ "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: `${SITE.origin}/`, inLanguage: r.lang, publisher: { "@id": ORGANIZATION["@id"] } }));
+    tags.push(ld({ "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: `${SITE.origin}/`, inLanguage: r.lang, publisher: { "@id": ORG_ID } }));
+  }
+  if (r.kind === "products") {
+    tags.push(
+      ld({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: r.hub?.h1,
+        itemListElement: PRODUCTS.filter((p) => p.slug).map((p, i) => ({ "@type": "ListItem", position: i + 1, name: p.name, url: absolute(solutionHref(p.slug as string, r.lang)) })),
+      }),
+    );
+    if (r.path !== "/ne") tags.push(crumbs(r.hub?.h1 ?? "Products"));
   }
   const p = r.page;
-  if (p) {
+  if (r.kind === "product" && p) {
     tags.push(
       ld({
         "@context": "https://schema.org",
@@ -61,7 +88,7 @@ export function headHtml(r: RouteDef): string {
         description: p.description,
         url,
         inLanguage: p.lang,
-        publisher: { "@id": ORGANIZATION["@id"] },
+        publisher: { "@id": ORG_ID },
       }),
       ld({
         "@context": "https://schema.org",
@@ -69,15 +96,13 @@ export function headHtml(r: RouteDef): string {
         inLanguage: p.lang,
         mainEntity: p.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
       }),
-      ld({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: SITE.name, item: absolute(r.lang === "ne" ? "/ne" : "/") },
-          ...(p.slug ? [{ "@type": "ListItem", position: 2, name: p.h1, item: url }] : []),
-        ],
-      }),
+      crumbs(p.product),
     );
+  }
+  if (r.kind === "legal" && r.legal) tags.push(crumbs(r.legal.h1));
+  if (r.lang === "ne") {
+    // Devanagari font for Nepali pages only
+    tags.push(`<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" />`);
   }
   return tags.join("\n    ");
 }

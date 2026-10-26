@@ -1,8 +1,14 @@
 import React from "react";
 import { Cloud, ShieldAlert, BarChart3, Zap, Facebook, Instagram, Linkedin } from "lucide-react";
 import Logo from "./Logo";
-import { SOLUTION_LABELS, SOLUTION_SLUGS } from "../seo/content";
+import { SOCIAL, SOLUTION_LABELS, SOLUTION_SLUGS } from "../seo/content";
 import { solutionHref, type RouteDef } from "../seo/routes";
+
+const SOCIAL_LINKS = [
+  { href: SOCIAL.facebook, label: "Facebook", Icon: Facebook },
+  { href: SOCIAL.instagram, label: "Instagram", Icon: Instagram },
+  { href: SOCIAL.linkedin, label: "LinkedIn", Icon: Linkedin },
+].filter((l) => l.href);
 
 export default function Footer({ route }: { route: RouteDef }) {
   const isHome = route.kind === "home";
@@ -60,54 +66,34 @@ export default function Footer({ route }: { route: RouteDef }) {
           </div>
           
           <div className="space-y-1 pl-1">
-            <h4 className="text-base font-bold tracking-tight text-[var(--text)]">
-              Enterprise Suite
-            </h4>
+            <p className="text-base font-bold tracking-tight text-[var(--text)]">
+              MotoCore ERP
+            </p>
             <p className="text-[11px] font-bold font-display tracking-wider text-brand-red uppercase">
-              Next-Gen Dealership Management
+              All-in-one automobile management
             </p>
           </div>
           
           <p className="text-xs md:text-sm text-[var(--text)] opacity-70 max-w-sm leading-relaxed">
-            The elite enterprise SaaS re-imagining how vehicle networks, service mechanics bays, and parts distributors operate in total synchronization.
+            MotoCore brings showroom sales, spare parts, workshops and used vehicles into one cloud platform, built in Nepal.
           </p>
 
-          {/* Socials */}
-          <div className="flex items-center space-x-4">
-            <a 
-              href="https://facebook.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="p-2 ml-[-4px] rounded-lg bg-[var(--card)] border border-[var(--border)] text-[var(--text)] opacity-70 hover:opacity-100 hover:text-[#E30613] hover:border-brand-red/30 transition-all"
-              aria-label="Facebook"
-            >
-              <Facebook className="h-4.5 w-4.5" />
-            </a>
-            <a 
-              href="https://instagram.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-[var(--text)] opacity-70 hover:opacity-100 hover:text-[#E30613] hover:border-brand-red/30 transition-all"
-              aria-label="Instagram"
-            >
-              <Instagram className="h-4.5 w-4.5" />
-            </a>
-            <a 
-              href="https://linkedin.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-[var(--text)] opacity-70 hover:opacity-100 hover:text-[#E30613] hover:border-brand-red/30 transition-all"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="h-4.5 w-4.5" />
-            </a>
-          </div>
+          {/* Socials: only official profiles that are configured (seo/content.ts SOCIAL) */}
+          {SOCIAL_LINKS.length > 0 && (
+            <div className="flex items-center space-x-4">
+              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="p-2 rounded-lg bg-[var(--card)] border border-[var(--border)] text-[var(--text)] opacity-70 hover:opacity-100 hover:text-[#E30613] hover:border-brand-red/30 transition-all">
+                  <Icon className="h-4.5 w-4.5" />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Links Col 1 (Navigation) */}
         <div className="md:col-span-3 text-left space-y-4">
           <p className="text-xs font-bold tracking-widest text-[var(--text)] opacity-55 uppercase">
-            {route.lang === "ne" ? "समाधान" : "SOLUTIONS"}
+            {route.lang === "ne" ? "उत्पादन" : "PRODUCTS"}
           </p>
           <ul className="space-y-2.5">
             {SOLUTION_SLUGS.map((slug) => (
@@ -117,6 +103,7 @@ export default function Footer({ route }: { route: RouteDef }) {
                 </a>
               </li>
             ))}
+            <li className="text-sm text-[var(--text)] opacity-70 font-semibold">MotoCore Car <span className="text-xs">({route.lang === "ne" ? "छिट्टै" : "coming soon"})</span></li>
           </ul>
         </div>
 
@@ -127,8 +114,8 @@ export default function Footer({ route }: { route: RouteDef }) {
           </p>
           <ul className="space-y-2.5">
             <li>
-              <a href={section("#about")} onClick={(e) => handleLinkClick(e, section("#about"))} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
-                About Priority Launch
+              <a href={route.lang === "ne" ? "/ne/products" : "/products"} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
+                {route.lang === "ne" ? "सबै उत्पादन" : "All products"}
               </a>
             </li>
             <li>
@@ -136,8 +123,14 @@ export default function Footer({ route }: { route: RouteDef }) {
                 Contact & support
               </a>
             </li>
+            <li>
+              <a href="/privacy" className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="/terms" className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">Terms of Service</a>
+            </li>
             <li className="pt-2 border-t border-[var(--border)]">
-              <span className="text-[11px] block text-[var(--text)] opacity-50 font-bold uppercase mb-1">PROUDLY DEVELOPED BY</span>
+              <span className="text-[11px] block text-[var(--text)] opacity-70 font-bold uppercase mb-1">PROUDLY DEVELOPED BY</span>
               <span className="text-sm font-extrabold text-[var(--text)]">
                 Code One Nepal Pvt. Ltd.
               </span>
@@ -150,15 +143,15 @@ export default function Footer({ route }: { route: RouteDef }) {
       {/* 3. LOWER LEGAL COPYRIGHT BANNER */}
       <div className="border-t border-[var(--border)] py-8 bg-[var(--bg)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-[var(--text)] opacity-60 text-center font-semibold">
+          <p className="text-xs text-[var(--text)] opacity-75 text-center font-semibold">
             © {new Date().getFullYear()} Code One Nepal Pvt. Ltd. All rights reserved.
           </p>
-          <div className="flex items-center space-x-6 text-xs text-[var(--text)] opacity-50 font-bold">
-            <a href="#" className="hover:text-brand-red">Privacy Policy</a>
-            <span>•</span>
-            <a href="#" className="hover:text-brand-red">Terms of Service</a>
-            <span>•</span>
-            <a href="#" className="hover:text-brand-red">Lalitpur Jurisdiction</a>
+          <div className="flex items-center space-x-6 text-xs text-[var(--text)] opacity-75 font-bold">
+            <a href="/privacy" className="hover:text-brand-red">Privacy Policy</a>
+            <span aria-hidden="true">•</span>
+            <a href="/terms" className="hover:text-brand-red">Terms of Service</a>
+            <span aria-hidden="true">•</span>
+            <span>Sanepa, Lalitpur, Nepal</span>
           </div>
         </div>
       </div>

@@ -24,14 +24,15 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
   // Home-page sections are linked as /#section from the landing pages; every page has its own #contact
   const section = (hash: string) => (isHome || hash === "#contact" ? hash : `/${hash}`);
   const navLinks = [
+    { label: ne ? "उत्पादन" : "Products", href: solutionHref("products", route.lang) },
     { label: SOLUTION_LABELS[route.lang]["bike-showroom-software"], href: solutionHref("bike-showroom-software", route.lang) },
-    { label: ne ? "सुविधा" : "Features", href: section("#features") },
-    { label: ne ? "हाम्रो बारेमा" : "About", href: section("#solutions") },
+    { label: ne ? "अफर" : "Offer", href: ne ? "/#early-launch-offer" : section("#early-launch-offer") },
     { label: ne ? "सम्पर्क" : "Contact", href: "#contact" }
   ];
+  // Pages without a translation (privacy, terms) switch to the other language's home
   const otherLang = ne
-    ? { label: "English", href: route.alternates.en, hrefLang: "en" }
-    : { label: "नेपाली", href: route.alternates.ne, hrefLang: "ne" };
+    ? { label: "English", href: route.alternates?.en ?? "/", hrefLang: "en" }
+    : { label: "नेपाली", href: route.alternates?.ne ?? "/ne", hrefLang: "ne" };
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setIsMobileMenuOpen(false);

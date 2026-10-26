@@ -18,49 +18,65 @@ const FEATURES = [
     icon: "CarFront",
     title: "Vehicle Dealership Management",
     description: "Inventory management, financing, CRM, bookings, deliveries and sales performance.",
-    badge: "Dealerships"
+    badge: "Dealerships",
+    href: "/bike-showroom-software",
+    linkLabel: "MotoCore Bike"
   },
   {
     icon: "History",
     title: "Used Vehicle Management",
     description: "Valuation, acquisition tracking, stock management, reconditioning and profitability analysis.",
-    badge: "Pre-Owned"
+    badge: "Pre-Owned",
+    href: "/used-vehicle-reconditioning-software",
+    linkLabel: "MotoCore Recon-Lite"
   },
   {
     icon: "Boxes",
     title: "Inventory & Parts Management",
     description: "Multi-warehouse inventory, stock tracking, reorder levels and procurement visibility.",
-    badge: "Spares"
+    badge: "Spares",
+    href: "/spare-parts-inventory-software",
+    linkLabel: "MotoCore Parts"
   },
   {
     icon: "Wrench",
     title: "Workshop Management",
     description: "Job cards, technician scheduling, labor management and service tracking.",
-    badge: "Servicing"
+    badge: "Servicing",
+    href: "/workshop-management-software",
+    linkLabel: "MotoCore Workshop"
   },
   {
     icon: "Users",
     title: "CRM & Customer Management",
     description: "Lead lifecycle management, customer history, follow-up automation and loyalty management.",
-    badge: "Engagement"
+    badge: "Engagement",
+    href: "/bike-showroom-software",
+    linkLabel: "MotoCore Bike"
   },
   {
     icon: "ShoppingCart",
     title: "Procurement Management",
     description: "Purchase requests, purchase orders, vendor management and GRN processing.",
-    badge: "Procure"
+    badge: "Procure",
+    href: "/spare-parts-inventory-software",
+    linkLabel: "MotoCore Parts"
   },
   {
     icon: "TrendingUp",
     title: "Finance & KPIs",
     description: "Real-time dashboards, profitability analysis, business intelligence and management reporting.",
-    badge: "Analytics"
+    badge: "Analytics",
+    href: "/products",
+    linkLabel: "all products"
   },
   {
     icon: "Network",
     title: "Multi-Branch Operations",
     description: "Centralized control of multiple dealerships, workshops and warehouses.",
-    badge: "Enterprise"
+    badge: "Enterprise",
+    href: "/products",
+    linkLabel: "all products"
   }
 ];
 
@@ -89,8 +105,9 @@ export default function Features() {
             const IconComponent = iconsMap[feat.icon] || CarFront;
 
             return (
-              <motion.div
+              <motion.a
                 key={feat.title}
+                href={feat.href}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -126,11 +143,11 @@ export default function Features() {
 
                 {/* Subtle Interactive Arrow indicator */}
                 <div className="flex items-center text-[11px] font-bold tracking-widest uppercase text-[var(--text)] opacity-55 group-hover:opacity-100 group-hover:text-brand-red transition-all mt-6 space-x-1">
-                  <span>Learn more</span>
+                  <span>Explore {feat.linkLabel}</span>
                   <span className="transform translate-x-0 group-hover:translate-x-1.5 transition-transform duration-200">→</span>
                 </div>
 
-              </motion.div>
+              </motion.a>
             );
           })}
         </div>

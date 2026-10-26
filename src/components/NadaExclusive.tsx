@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 export default function NadaExclusive() {
   return (
-    <section id="nada-exclusive" className="relative overflow-hidden py-12 md:py-16 bg-white [.dark_&]:bg-[#0B0D12] border-y border-[var(--border)] [.dark_&]:border-white/5 transition-colors duration-300">
+    <section id="early-launch-offer" className="scroll-mt-28 relative overflow-hidden py-12 md:py-16 bg-white [.dark_&]:bg-[#0B0D12] border-y border-[var(--border)] [.dark_&]:border-white/5 transition-colors duration-300">
       {/* Optional faint background gradients to simulate the red lighting from the image */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-red-900/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-red-900/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
@@ -20,15 +20,15 @@ export default function NadaExclusive() {
               transition={{ duration: 0.5 }}
             >
               <div className="inline-block bg-brand-red text-white text-[10px] font-bold px-3 py-1.5 rounded-sm uppercase tracking-wider mb-6">
-                LAUNCH EXCLUSIVE
+                EARLY LAUNCH OFFER
               </div>
               
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--text)] [.dark_&]:text-white mb-4 tracking-tight">
-                Secure your Slot Now.
+                Early launch offer
               </h2>
               
               <p className="text-lg md:text-xl text-[var(--text)]/80 [.dark_&]:text-gray-300 mb-10">
-                Start your free Motocore Recon Lite trial.
+                Up to 50% off for early customers of MotoCore Parts, Workshop and Recon-Lite. Start with a free trial.
               </p>
               
               <a href="https://live.motocoreerp.com/register" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-4 bg-brand-red text-white text-base font-bold rounded-2xl cursor-pointer active:scale-95 transition-all outline-none border-none shadow-lg shadow-brand-red/30 hover:shadow-brand-red/45 hover:scale-[1.02] duration-300">
@@ -36,9 +36,9 @@ export default function NadaExclusive() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
               
-              {/* <p className="text-xs text-[var(--text)]/60 [.dark_&]:text-gray-500 mt-6">
-                Limited NADA campaign. Terms apply.
-              </p> */}
+              <p className="text-xs text-[var(--text)]/70 [.dark_&]:text-gray-400 mt-6">
+                For new customers while the offer runs. <a href="/terms" className="underline hover:text-brand-red">Terms apply</a>.
+              </p>
             </motion.div>
           </div>
 

@@ -1,7 +1,7 @@
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Minus } from "lucide-react";
 import Contact from "../components/Contact";
 import { SOLUTION_LABELS, SOLUTION_SLUGS, type PageContent } from "../seo/content";
-import { solutionHref } from "../seo/routes";
+import { homeHref as homeOf, solutionHref } from "../seo/routes";
 
 const UI = {
   en: { home: "Home", steps: "How it works", faq: "Frequently asked questions", related: "More MotoCore solutions", solutions: "Solutions" },
@@ -11,7 +11,7 @@ const UI = {
 /** A search landing page: plain, fully pre-rendered HTML (no entrance animations hiding text from crawlers). */
 export default function ProductPage({ page }: { page: PageContent }) {
   const t = UI[page.lang];
-  const homeHref = page.lang === "ne" ? "/ne" : "/";
+  const homeHref = homeOf(page.lang);
   const related = SOLUTION_SLUGS.filter((s) => s !== page.slug);
 
   return (
@@ -21,7 +21,7 @@ export default function ProductPage({ page }: { page: PageContent }) {
           <nav aria-label="Breadcrumb" className="text-xs text-[var(--text)]/60 mb-5">
             <a href={homeHref} className="hover:text-[var(--accent)]">{t.home}</a>
             {page.slug && <span aria-hidden="true"> / </span>}
-            {page.slug && <span>{SOLUTION_LABELS[page.lang][page.slug]}</span>}
+            {page.slug && <span>{page.product}</span>}
           </nav>
           <p className="inline-block text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-4">{page.eyebrow}</p>
           <h1 className="font-display text-3xl sm:text-5xl font-bold leading-tight max-w-4xl">{page.h1}</h1>
@@ -45,6 +45,60 @@ export default function ProductPage({ page }: { page: PageContent }) {
           </div>
         </div>
       </section>
+
+      {page.shots && (
+        <section className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold">{page.shots.heading}</h2>
+            <div className="mt-8 grid gap-6 lg:grid-cols-3">
+              {page.shots.items.map((s, i) => (
+                <figure key={s.src} className={s.phone ? "lg:row-span-2 lg:col-start-3 lg:row-start-1" : i === 0 ? "lg:col-span-2" : "lg:col-span-2"}>
+                  <div className={`overflow-hidden rounded-xl border border-[var(--border)] bg-white shadow-sm ${s.phone ? "mx-auto max-w-[300px] rounded-[2rem] border-4" : ""}`}>
+                    <img src={s.src} alt={s.alt} width={s.width} height={s.height} loading={i === 0 ? "eager" : "lazy"} decoding="async" className="block h-auto w-full" />
+                  </div>
+                  <figcaption className="mt-2 text-sm text-[var(--text)]/70">{s.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {page.tiers && (
+        <section className="border-b border-[var(--border)] bg-[var(--bg)]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-14 sm:py-16">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold">{page.tiers.heading}</h2>
+            <p className="mt-3 text-[var(--text)]/70">{page.tiers.intro}</p>
+            <div className="mt-8 overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--card)]">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-[var(--border)]">
+                    <th scope="col" className="p-4 text-left font-semibold"><span className="sr-only">Feature</span></th>
+                    {page.tiers.columns.map((c) => (
+                      <th key={c.name} scope="col" className="p-4 text-center">
+                        <span className="block font-bold">{c.name}</span>
+                        <span className="block text-xs font-normal text-[var(--text)]/60">{c.text}</span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {page.tiers.rows.map((row) => (
+                    <tr key={row.feature} className="border-b border-[var(--border)] last:border-0">
+                      <th scope="row" className="p-4 text-left font-medium">{row.feature}</th>
+                      {row.values.map((v, i) => (
+                        <td key={i} className="p-4 text-center">
+                          {v ? <Check className="mx-auto h-5 w-5 text-[var(--accent)]" aria-label="Included" /> : <Minus className="mx-auto h-5 w-5 text-[var(--text)]/40" aria-label="Not included" />}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
 
       {page.groups.map((g) => (
         <section key={g.heading} className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">

@@ -10,6 +10,9 @@ import Footer from "./components/Footer";
 import { EarlyAccessModal, DemoRequestModal } from "./components/LaunchDialogs";
 import NadaExclusive from "./components/NadaExclusive";
 import ProductPage from "./pages/ProductPage";
+import ProductsPage from "./pages/ProductsPage";
+import LegalPage from "./pages/LegalPage";
+import ProductStrip from "./components/ProductStrip";
 import type { RouteDef } from "./seo/routes";
 
 export default function App({ route }: { route: RouteDef }) {
@@ -72,9 +75,11 @@ export default function App({ route }: { route: RouteDef }) {
       />
 
       {/* 2. Main content: the home sections, or a search landing page */}
-      {route.kind === "product" && route.page ? (
+      {route.kind !== "home" ? (
         <main className="flex-grow mt-7">
-          <ProductPage page={route.page} />
+          {route.kind === "product" && route.page && <ProductPage page={route.page} />}
+          {route.kind === "products" && route.hub && <ProductsPage lang={route.lang} hub={route.hub} />}
+          {route.kind === "legal" && route.legal && <LegalPage doc={route.legal} />}
         </main>
       ) : (
       <main className="flex-grow mt-7">
@@ -87,7 +92,10 @@ export default function App({ route }: { route: RouteDef }) {
         {/* Sector validation caps */}
         <TrustedBy />
 
-        {/* Exclusive NADA Offer Section */}
+        {/* The MotoCore product line */}
+        <ProductStrip />
+
+        {/* Early launch offer (Parts, Workshop, Recon-Lite) */}
         <NadaExclusive />
 
         {/* 8-Card Business Management Feature Suite */}
