@@ -27,12 +27,31 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
     { label: ne ? "उत्पादन" : "Products", href: solutionHref("products", route.lang) },
     { label: SOLUTION_LABELS[route.lang]["bike-showroom-software"], href: solutionHref("bike-showroom-software", route.lang) },
     { label: ne ? "अफर" : "Offer", href: ne ? "/#early-launch-offer" : section("#early-launch-offer") },
+    { label: ne ? "ब्लग" : "Blog", href: "/blog" },
     { label: ne ? "सम्पर्क" : "Contact", href: "#contact" }
   ];
-  // Pages without a translation (privacy, terms) switch to the other language's home
-  const otherLang = ne
-    ? { label: "English", href: route.alternates?.en ?? "/", hrefLang: "en" }
-    : { label: "नेपाली", href: route.alternates?.ne ?? "/ne", hrefLang: "ne" };
+  // Same page in the other language; pages without a translation (privacy, terms, blog) switch to that language's home
+  const langHref = { en: route.alternates?.en ?? "/", ne: route.alternates?.ne ?? "/ne" };
+  const langSwitch = (compact: boolean) => (
+    <div role="group" aria-label={ne ? "भाषा" : "Language"} className="inline-flex shrink-0 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] p-1 text-xs font-bold">
+      {([["en", compact ? "EN" : "English"], ["ne", "नेपाली"]] as const).map(([l, label]) => {
+        const active = route.lang === l;
+        return (
+          <a
+            key={l}
+            href={langHref[l]}
+            hrefLang={l}
+            lang={l}
+            aria-current={active ? "page" : undefined}
+            aria-label={l === "en" ? "English" : "नेपाली"}
+            className={`rounded-lg px-2.5 py-1.5 transition-colors ${active ? "bg-brand-red text-white" : "text-[var(--text)] opacity-80 hover:opacity-100"}`}
+          >
+            {label}
+          </a>
+        );
+      })}
+    </div>
+  );
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setIsMobileMenuOpen(false);
@@ -83,9 +102,7 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
 
           {/* Utility Actions */}
           <div className="hidden lg:flex items-center space-x-6">
-            <a href={otherLang.href} hrefLang={otherLang.hrefLang} className="text-sm font-semibold text-[var(--text)] opacity-85 hover:opacity-100 hover:text-brand-red">
-              {otherLang.label}
-            </a>
+            {langSwitch(false)}
             {/* Theme Toggle Button */}
             <button
               onClick={onToggleTheme}
@@ -118,21 +135,14 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
           </div>
 
           {/* Mobile Hamburger Menu Toggle */}
-          <div className="flex items-center space-x-4 lg:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
+            {langSwitch(true)}
             <button
               onClick={onToggleTheme}
-              className="inline-flex items-center justify-center h-10 px-3.5 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)]"
-              aria-label="Toggle Theme"
+              className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)]"
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {isDarkMode ? (
-                <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
-                  <span>☀</span> <span>Light</span>
-                </span>
-              ) : (
-                <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
-                  <span>🌙</span> <span>Dark</span>
-                </span>
-              )}
+              {isDarkMode ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
             </button>
 
             <button
@@ -159,9 +169,6 @@ export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAc
                   {link.label}
                 </a>
               ))}
-              <a href={otherLang.href} hrefLang={otherLang.hrefLang} className="text-base font-semibold text-[var(--text)] hover:text-brand-red py-2 transition-colors border-b border-[var(--border)]">
-                {otherLang.label}
-              </a>
               <div className="flex gap-3 mt-4">
                 <button
                   onClick={() => {

@@ -13,6 +13,8 @@ import ProductPage from "./pages/ProductPage";
 import ProductsPage from "./pages/ProductsPage";
 import LegalPage from "./pages/LegalPage";
 import ProductStrip from "./components/ProductStrip";
+import LatestPosts from "./components/LatestPosts";
+import { BlogArticle, BlogIndex } from "./pages/BlogPage";
 import type { RouteDef } from "./seo/routes";
 
 export default function App({ route }: { route: RouteDef }) {
@@ -80,6 +82,8 @@ export default function App({ route }: { route: RouteDef }) {
           {route.kind === "product" && route.page && <ProductPage page={route.page} />}
           {route.kind === "products" && route.hub && <ProductsPage lang={route.lang} hub={route.hub} />}
           {route.kind === "legal" && route.legal && <LegalPage doc={route.legal} />}
+          {route.kind === "blog" && <BlogIndex />}
+          {route.kind === "post" && route.post && <BlogArticle post={route.post} />}
         </main>
       ) : (
       <main className="flex-grow mt-7">
@@ -103,6 +107,9 @@ export default function App({ route }: { route: RouteDef }) {
 
         {/* Industry Focus Showcase & Core Benefits checks */}
         <IndustrySection />
+
+        {/* Newest blog posts */}
+        <LatestPosts />
 
         {/* Priority registration block */}
         <EarlyAccess />

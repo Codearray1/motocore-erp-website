@@ -30,6 +30,19 @@ export interface Shot {
   phone?: boolean;
 }
 
+/** "Mobile app" highlight on a product page (MotoCore Bike). */
+export interface MobileApp {
+  badge: string; // hero chip, links to the section
+  heading: string;
+  text: string;
+  points: string[];
+  storesNote: string; // shown while no store link is set
+  image: Shot;
+}
+
+/** Public store links for the MotoCore Bike app; an empty link hides that store's button. */
+export const APP_STORES = { android: "", ios: "" };
+
 export interface PageContent {
   slug: string; // "" for the Nepali home (/ne)
   lang: Lang;
@@ -41,6 +54,7 @@ export interface PageContent {
   intro: string;
   ctas: Cta[];
   shots?: { heading: string; items: Shot[] };
+  mobileApp?: MobileApp;
   tiers?: { heading: string; intro: string; columns: { name: string; text: string }[]; rows: { feature: string; values: [boolean, boolean] }[] };
   groups: FeatureGroup[];
   steps?: { heading: string; items: string[] };
@@ -87,6 +101,32 @@ const bikeShots = (lang: Lang): { heading: string; items: Shot[] } => {
   };
 };
 
+const bikeApp = (lang: Lang): MobileApp => {
+  const ne = lang === "ne";
+  return {
+    badge: ne ? "Android र iOS मोबाइल एप समावेश" : "Android and iOS app included",
+    heading: ne ? "शोरूम तपाईंको खल्तीमा: MotoCore Bike मोबाइल एप" : "Your showroom in your pocket: the MotoCore Bike app",
+    text: ne
+      ? "MotoCore Bike सँग Android र iPhone एप आउँछ। सञ्चालक, म्यानेजर र बिक्री टोलीले वेबमा प्रयोग गर्ने उही लगइन र अनुमतिबाट शोरूम फ्लोर वा बाहिरबाट काम गर्न सक्छन्।"
+      : "MotoCore Bike comes with Android and iPhone apps. Owners, managers and the sales team use the same login and permissions as on the web, from the showroom floor or on the move.",
+    points: ne
+      ? [
+          "सोधपुछ, बुकिङ, स्टक र भुक्तानी देखाउने सञ्चालक ड्यासबोर्ड",
+          "शोरूम फ्लोरबाटै नयाँ सोधपुछ र वाक-इन बुकिङ",
+          "नयाँ बुकिङ, भुक्तानी र स्वीकृतिका लागि पुस सूचना",
+          "एक्सचेन्ज, नामसारी, फिर्ता र कलेक्सन मोबाइलमै",
+        ]
+      : [
+          "Owner dashboard with inquiries, bookings, stock and collections",
+          "Add inquiries and walk-in bookings from the showroom floor",
+          "Push notifications for new bookings, payments and approvals",
+          "Exchange, namsari, refunds and collections on the phone",
+        ],
+    storesNote: ne ? "एप डाउनलोडका लागि हाम्रो टोलीलाई सम्पर्क गर्नुहोस्।" : "Ask our team for the app download when you sign up.",
+    image: { src: bikeMobile, width: 600, height: 1230, phone: true, alt: ne ? "MotoCore Bike मोबाइल एपको ड्यासबोर्ड" : "MotoCore Bike mobile app dashboard", caption: "" },
+  };
+};
+
 const bikeEn: PageContent = {
   slug: "bike-showroom-software",
   lang: "en",
@@ -100,6 +140,7 @@ const bikeEn: PageContent = {
     "MotoCore Bike runs a two-wheeler dealership from the first walk-in to the bill book: inquiries and follow-ups, bookings and receipts, VIN-wise stock, allocation, sale documents, challan and delivery, namsari tracking, collections and refunds. It is built for showrooms in Nepal, with NPR amounts, Nepali fiscal years and a mobile app for your sales team.",
   ctas: [demoEn, callEn],
   shots: bikeShots("en"),
+  mobileApp: bikeApp("en"),
   groups: [
     {
       heading: "From inquiry to delivery in one flow",
@@ -166,6 +207,7 @@ const bikeNe: PageContent = {
     "MotoCore Bike ले ग्राहक शोरूममा आएदेखि बिलबुक हस्तान्तरणसम्मको सम्पूर्ण काम एउटै प्रणालीमा चलाउँछ: सोधपुछ र फलोअप, बुकिङ र रसिद, VIN अनुसारको स्टक, एलोकेसन, बिक्री कागजात, चलान र डेलिभरी, नामसारी ट्र्याकिङ, भुक्तानी सङ्कलन र फिर्ता। नेपालका शोरूमका लागि बनाइएको — रुपैयाँमा रकम, नेपाली आर्थिक वर्ष र बिक्री टोलीका लागि मोबाइल एप।",
   ctas: [demoNe, callNe],
   shots: bikeShots("ne"),
+  mobileApp: bikeApp("ne"),
   groups: [
     {
       heading: "सोधपुछदेखि डेलिभरीसम्म एउटै प्रवाह",

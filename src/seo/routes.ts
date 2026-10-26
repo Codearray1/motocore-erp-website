@@ -1,13 +1,16 @@
 import { NE_HOME, PRODUCT_PAGES, PRODUCTS_PAGE, SITE, type Lang, type PageContent } from "./content";
 import { PRIVACY, TERMS, type LegalDoc } from "./legal";
+import { BLOG, POSTS, type BlogPost } from "./blog";
 
 export interface RouteDef {
   path: string; // "/", "/bike-showroom-software", "/ne", "/ne/bike-showroom-software" (no trailing slash)
   lang: Lang;
-  kind: "home" | "product" | "products" | "legal";
+  kind: "home" | "product" | "products" | "legal" | "blog" | "post";
   page?: PageContent; // kind "product"
   hub?: { eyebrow: string; h1: string; intro: string }; // kind "products" (/products, /ne/products, /ne)
   legal?: LegalDoc; // kind "legal" (English only)
+  post?: BlogPost; // kind "post" (English only)
+  lastmod?: string; // sitemap <lastmod>; build date when unset
   title: string;
   description: string;
   alternates: { en: string; ne: string } | null; // null: no translation (legal pages)
@@ -60,6 +63,25 @@ export const ROUTES: RouteDef[] = [
     title: doc.title,
     description: doc.description,
     alternates: null,
+  })),
+  {
+    path: "/blog",
+    lang: "en",
+    kind: "blog",
+    title: BLOG.title,
+    description: BLOG.description,
+    alternates: null,
+    lastmod: POSTS[0]?.updated ?? POSTS[0]?.date,
+  },
+  ...POSTS.map<RouteDef>((post) => ({
+    path: `/blog/${post.slug}`,
+    lang: "en",
+    kind: "post",
+    post,
+    title: `${post.title} | MotoCore Blog`,
+    description: post.description,
+    alternates: null,
+    lastmod: post.updated ?? post.date,
   })),
 ];
 

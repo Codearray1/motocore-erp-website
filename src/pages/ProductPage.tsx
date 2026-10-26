@@ -1,6 +1,6 @@
-import { ArrowRight, Check, ChevronDown, Minus } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Minus, Smartphone } from "lucide-react";
 import Contact from "../components/Contact";
-import { SOLUTION_LABELS, SOLUTION_SLUGS, type PageContent } from "../seo/content";
+import { APP_STORES, SOLUTION_LABELS, SOLUTION_SLUGS, type PageContent } from "../seo/content";
 import { homeHref as homeOf, solutionHref } from "../seo/routes";
 
 const UI = {
@@ -26,6 +26,12 @@ export default function ProductPage({ page }: { page: PageContent }) {
           <p className="inline-block text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-4">{page.eyebrow}</p>
           <h1 className="font-display text-3xl sm:text-5xl font-bold leading-tight max-w-4xl">{page.h1}</h1>
           <p className="mt-5 text-base sm:text-lg leading-relaxed text-[var(--text)]/75 max-w-3xl">{page.intro}</p>
+          {page.mobileApp && (
+            <a href="#mobile-app" className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-4 py-2 text-sm font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/15">
+              <Smartphone className="h-4 w-4" aria-hidden="true" />
+              {page.mobileApp.badge}
+            </a>
+          )}
           <div className="mt-8 flex flex-wrap gap-3">
             {page.ctas.map((c, i) => (
               <a
@@ -45,6 +51,40 @@ export default function ProductPage({ page }: { page: PageContent }) {
           </div>
         </div>
       </section>
+
+      {page.mobileApp && (
+        <section id="mobile-app" className="scroll-mt-28 border-b border-[var(--border)] bg-[var(--bg)]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 grid items-center gap-10 md:grid-cols-[1fr_auto]">
+            <div>
+              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--accent)]">
+                <Smartphone className="h-4 w-4" aria-hidden="true" /> Android · iOS
+              </p>
+              <h2 className="mt-3 font-display text-2xl sm:text-4xl font-bold leading-tight">{page.mobileApp.heading}</h2>
+              <p className="mt-4 max-w-2xl leading-relaxed text-[var(--text)]/75">{page.mobileApp.text}</p>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                {page.mobileApp.points.map((pt) => (
+                  <li key={pt} className="flex gap-2 text-sm leading-relaxed">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent)]" aria-hidden="true" />
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                {APP_STORES.android && (
+                  <a href={APP_STORES.android} target="_blank" rel="noopener" className="rounded-lg bg-[var(--text)] px-5 py-3 text-sm font-semibold text-[var(--bg)] hover:opacity-90">Google Play</a>
+                )}
+                {APP_STORES.ios && (
+                  <a href={APP_STORES.ios} target="_blank" rel="noopener" className="rounded-lg bg-[var(--text)] px-5 py-3 text-sm font-semibold text-[var(--bg)] hover:opacity-90">App Store</a>
+                )}
+                {!APP_STORES.android && !APP_STORES.ios && <p className="text-sm text-[var(--text)]/70">{page.mobileApp.storesNote}</p>}
+              </div>
+            </div>
+            <div className="mx-auto w-56 sm:w-64 overflow-hidden rounded-[2rem] border-4 border-[var(--border)] bg-white shadow-xl">
+              <img src={page.mobileApp.image.src} alt={page.mobileApp.image.alt} width={page.mobileApp.image.width} height={page.mobileApp.image.height} loading="lazy" decoding="async" className="block h-auto w-full" />
+            </div>
+          </div>
+        </section>
+      )}
 
       {page.shots && (
         <section className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">

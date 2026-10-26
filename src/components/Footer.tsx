@@ -119,6 +119,11 @@ export default function Footer({ route }: { route: RouteDef }) {
               </a>
             </li>
             <li>
+              <a href="/blog" className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
+                {route.lang === "ne" ? "ब्लग" : "Blog"}
+              </a>
+            </li>
+            <li>
               <a href={section("#contact")} onClick={(e) => handleLinkClick(e, section("#contact"))} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
                 Contact & support
               </a>

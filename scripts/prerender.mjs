@@ -47,7 +47,7 @@ const urls = ROUTES.map((r) => {
   return [
     '  <url>',
     `    <loc>${ORIGIN}${r.path}</loc>`,
-    `    <lastmod>${lastmod}</lastmod>`,
+    `    <lastmod>${r.lastmod ?? lastmod}</lastmod>`,
     ...(r.alternates ? [alt('en', r.alternates.en), alt('ne', r.alternates.ne), alt('x-default', r.alternates.en)] : []),
     '  </url>',
   ].join('\n');
