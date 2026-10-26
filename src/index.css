@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -127,4 +127,9 @@ body {
 
 .dark .neon-glow-red {
   box-shadow: 0 4px 40px rgba(227, 6, 19, 0.25);
+}
+
+/* Nepali pages */
+:lang(ne) {
+  font-family: "Noto Sans Devanagari", var(--font-sans);
 }

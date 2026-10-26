@@ -9,8 +9,10 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { EarlyAccessModal, DemoRequestModal } from "./components/LaunchDialogs";
 import NadaExclusive from "./components/NadaExclusive";
+import ProductPage from "./pages/ProductPage";
+import type { RouteDef } from "./seo/routes";
 
-export default function App() {
+export default function App({ route }: { route: RouteDef }) {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [isEarlyAccessOpen, setIsEarlyAccessOpen] = useState<boolean>(false);
   const [isDemoRequestOpen, setIsDemoRequestOpen] = useState<boolean>(false);
@@ -63,12 +65,18 @@ export default function App() {
     <div id="top" className="min-h-screen flex flex-col font-sans bg-[var(--bg)] text-[var(--text)]">
       {/* 1. Global Navigation Bar */}
       <Navbar 
+        route={route}
         isDarkMode={isDarkMode} 
         onToggleTheme={handleToggleTheme} 
         onOpenEarlyAccess={handleOpenEarlyAccess} 
       />
 
-      {/* 2. Main content modules */}
+      {/* 2. Main content: the home sections, or a search landing page */}
+      {route.kind === "product" && route.page ? (
+        <main className="flex-grow mt-7">
+          <ProductPage page={route.page} />
+        </main>
+      ) : (
       <main className="flex-grow mt-7">
         {/* Launch Intro Block with Ticking HUD Countdown */}
         <Hero 
@@ -94,9 +102,10 @@ export default function App() {
         {/* Multi-Branch inquiries form and contacts details */}
         <Contact />
       </main>
+      )}
 
       {/* 3. Global Footer & upper Features Bar alignment */}
-      <Footer />
+      <Footer route={route} />
 
       {/* Interactive overlays & forms */}
       <EarlyAccessModal isOpen={isEarlyAccessOpen} onClose={handleCloseAllModals} />

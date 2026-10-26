@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Play, Phone, ArrowBigLeft, ArrowRight } from "lucide-react";
-import heroPicture from "../assets/pictures/heropicture.png";
+import heroPicture from "../assets/pictures/heropicture.webp";
 
 
 
@@ -130,7 +130,10 @@ export default function Hero() {
             <div className="bg-transparent scale-110 sm:scale-125 lg:scale-[1.35] ransition-transform duration-700">
               <img
                 src={heroPicture}
-                alt="MotoCore ERP"
+                alt="MotoCore ERP dashboard for automotive dealerships and workshops"
+                width={1400}
+                height={896}
+                fetchPriority="high"
                 className="w-full h-auto object-cover select-none drop-shadow-2xl"
               />
             </div>

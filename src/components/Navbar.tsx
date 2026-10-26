@@ -1,32 +1,44 @@
 import React, { useState } from "react";
 import { Sun, Moon, Menu, X, ArrowRight } from "lucide-react";
 import Logo from "./Logo";
+import { SOLUTION_LABELS } from "../seo/content";
+import { solutionHref, type RouteDef } from "../seo/routes";
 
 interface NavbarProps {
+  route: RouteDef;
   isDarkMode: boolean;
   onToggleTheme: () => void;
   onOpenEarlyAccess: () => void;
 }
 
-export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }: NavbarProps) {
+export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAccess }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const openRegisterPage = () => {
     window.open("https://live.motocoreerp.com/register", "_blank");
   };
 
+  const isHome = route.kind === "home";
+  const ne = route.lang === "ne";
+  const homeHref = ne ? "/ne" : "/";
+  // Home-page sections are linked as /#section from the landing pages; every page has its own #contact
+  const section = (hash: string) => (isHome || hash === "#contact" ? hash : `/${hash}`);
   const navLinks = [
-    { label: "Offer", href: "#nada-exclusive" },
-    { label: "Features", href: "#features" },
-    { label: "About", href: "#solutions" },
-    { label: "Contact", href: "#contact" }
+    { label: SOLUTION_LABELS[route.lang]["bike-showroom-software"], href: solutionHref("bike-showroom-software", route.lang) },
+    { label: ne ? "सुविधा" : "Features", href: section("#features") },
+    { label: ne ? "हाम्रो बारेमा" : "About", href: section("#solutions") },
+    { label: ne ? "सम्पर्क" : "Contact", href: "#contact" }
   ];
+  const otherLang = ne
+    ? { label: "English", href: route.alternates.en, hrefLang: "en" }
+    : { label: "नेपाली", href: route.alternates.ne, hrefLang: "ne" };
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setIsMobileMenuOpen(false);
+    if (!href.startsWith("#")) return; // a page link: let the browser navigate
     const targetElement = document.querySelector(href);
     if (targetElement) {
+      e.preventDefault();
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
@@ -47,7 +59,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
         <div className="max-w-7xl mx-auto px-6 h-19 flex items-center justify-between">
           {/* LOGO: Pure high-precision vector SVG replacing broken external image URL */}
           <div className="flex items-center">
-            <a href="#" className="flex items-center" onClick={(e) => handleLinkClick(e, "#top")} aria-label="MotoCore ERP Homepage">
+            <a href={homeHref} className="flex items-center" onClick={(e) => { if (isHome) handleLinkClick(e, "#top"); }} aria-label="MotoCore ERP Homepage">
               <div className="transition-transform hover:scale-102 flex items-center">
                 <Logo className="h-20 md:h-24 w-auto object-contain" />
               </div>
@@ -70,6 +82,9 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
 
           {/* Utility Actions */}
           <div className="hidden lg:flex items-center space-x-6">
+            <a href={otherLang.href} hrefLang={otherLang.hrefLang} className="text-sm font-semibold text-[var(--text)] opacity-85 hover:opacity-100 hover:text-brand-red">
+              {otherLang.label}
+            </a>
             {/* Theme Toggle Button */}
             <button
               onClick={onToggleTheme}
@@ -143,11 +158,14 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
                   {link.label}
                 </a>
               ))}
+              <a href={otherLang.href} hrefLang={otherLang.hrefLang} className="text-base font-semibold text-[var(--text)] hover:text-brand-red py-2 transition-colors border-b border-[var(--border)]">
+                {otherLang.label}
+              </a>
               <div className="flex gap-3 mt-4">
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    window.location.href = '/login';
+                    window.location.href = 'https://live.motocoreerp.com/';
                   }}
                   className="flex-1 text-center bg-[var(--bg-secondary)] text-[var(--text)] border border-[var(--border)] py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-[var(--border)] active:scale-95 transition-all"
                 >
@@ -156,7 +174,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    window.location.href = '/register';
+                    openRegisterPage();
                   }}
                   className="flex-1 text-center bg-brand-red text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-brand-red/20 active:scale-95 transition-all"
                 >

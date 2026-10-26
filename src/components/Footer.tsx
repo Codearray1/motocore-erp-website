@@ -1,13 +1,19 @@
 import React from "react";
 import { Cloud, ShieldAlert, BarChart3, Zap, Facebook, Instagram, Linkedin } from "lucide-react";
 import Logo from "./Logo";
+import { SOLUTION_LABELS, SOLUTION_SLUGS } from "../seo/content";
+import { solutionHref, type RouteDef } from "../seo/routes";
 
-export default function Footer() {
-  
+export default function Footer({ route }: { route: RouteDef }) {
+  const isHome = route.kind === "home";
+  // Home-page sections are linked as /#section from the landing pages; every page has its own #contact
+  const section = (hash: string) => (isHome || hash === "#contact" ? hash : `/${hash}`);
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+    if (!href.startsWith("#")) return; // a page link: let the browser navigate
     const targetElement = document.querySelector(href);
     if (targetElement) {
+      e.preventDefault();
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
@@ -101,24 +107,16 @@ export default function Footer() {
         {/* Links Col 1 (Navigation) */}
         <div className="md:col-span-3 text-left space-y-4">
           <p className="text-xs font-bold tracking-widest text-[var(--text)] opacity-55 uppercase">
-            PRODUCT
+            {route.lang === "ne" ? "समाधान" : "SOLUTIONS"}
           </p>
           <ul className="space-y-2.5">
-            <li>
-              <a href="#features" onClick={(e) => handleLinkClick(e, "#features")} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
-                Features Suite
-              </a>
-            </li>
-            <li>
-              <a href="#solutions" onClick={(e) => handleLinkClick(e, "#solutions")} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
-                SaaS Solutions
-              </a>
-            </li>
-            <li>
-              <a href="#industries" onClick={(e) => handleLinkClick(e, "#industries")} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
-                Target Industries
-              </a>
-            </li>
+            {SOLUTION_SLUGS.map((slug) => (
+              <li key={slug}>
+                <a href={solutionHref(slug, route.lang)} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
+                  {SOLUTION_LABELS[route.lang][slug]}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -129,12 +127,12 @@ export default function Footer() {
           </p>
           <ul className="space-y-2.5">
             <li>
-              <a href="#about" onClick={(e) => handleLinkClick(e, "#about")} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
+              <a href={section("#about")} onClick={(e) => handleLinkClick(e, section("#about"))} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
                 About Priority Launch
               </a>
             </li>
             <li>
-              <a href="#contact" onClick={(e) => handleLinkClick(e, "#contact")} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
+              <a href={section("#contact")} onClick={(e) => handleLinkClick(e, section("#contact"))} className="text-sm text-[var(--text)] opacity-80 hover:opacity-100 hover:text-brand-red transition-all font-semibold">
                 Contact & support
               </a>
             </li>
