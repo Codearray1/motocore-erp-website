@@ -174,12 +174,12 @@ ${formData.message || "No additional message provided."}
           </a>
 
           {/* Core regulatory footnote */}
-          <div className="mt-10 pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-center gap-4 text-xs font-bold text-[var(--text)] opacity-50 relative z-10">
+          <div className="mt-10 pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-center gap-4 text-xs font-bold text-[var(--text)] opacity-75 relative z-10">
             <span>✓ No credit card required</span>
-            <span className="hidden sm:inline">•</span>
-            <span>✓ Enterprise-Grade compliance</span>
-            <span className="hidden sm:inline">•</span>
-            <span>✓ Cancel membership alert list anytime</span>
+            <span className="hidden sm:inline" aria-hidden="true">•</span>
+            <span>✓ Free setup and installation</span>
+            <span className="hidden sm:inline" aria-hidden="true">•</span>
+            <span>✓ Support from our Lalitpur team</span>
           </div>
 
         </motion.div>

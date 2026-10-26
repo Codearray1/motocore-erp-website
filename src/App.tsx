@@ -9,8 +9,17 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { EarlyAccessModal, DemoRequestModal } from "./components/LaunchDialogs";
 import NadaExclusive from "./components/NadaExclusive";
+import ProductPage from "./pages/ProductPage";
+import ProductsPage from "./pages/ProductsPage";
+import LegalPage from "./pages/LegalPage";
+import ProductStrip from "./components/ProductStrip";
+import LatestPosts from "./components/LatestPosts";
+import FeaturedBike from "./components/FeaturedBike";
+import HomeFaq from "./components/HomeFaq";
+import { BlogArticle, BlogIndex } from "./pages/BlogPage";
+import type { RouteDef } from "./seo/routes";
 
-export default function App() {
+export default function App({ route }: { route: RouteDef }) {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [isEarlyAccessOpen, setIsEarlyAccessOpen] = useState<boolean>(false);
   const [isDemoRequestOpen, setIsDemoRequestOpen] = useState<boolean>(false);
@@ -63,12 +72,22 @@ export default function App() {
     <div id="top" className="min-h-screen flex flex-col font-sans bg-[var(--bg)] text-[var(--text)]">
       {/* 1. Global Navigation Bar */}
       <Navbar 
+        route={route}
         isDarkMode={isDarkMode} 
         onToggleTheme={handleToggleTheme} 
         onOpenEarlyAccess={handleOpenEarlyAccess} 
       />
 
-      {/* 2. Main content modules */}
+      {/* 2. Main content: the home sections, or a search landing page */}
+      {route.kind !== "home" ? (
+        <main className="flex-grow mt-7">
+          {route.kind === "product" && route.page && <ProductPage page={route.page} />}
+          {route.kind === "products" && route.hub && <ProductsPage lang={route.lang} hub={route.hub} />}
+          {route.kind === "legal" && route.legal && <LegalPage doc={route.legal} />}
+          {route.kind === "blog" && <BlogIndex />}
+          {route.kind === "post" && route.post && <BlogArticle post={route.post} />}
+        </main>
+      ) : (
       <main className="flex-grow mt-7">
         {/* Launch Intro Block with Ticking HUD Countdown */}
         <Hero 
@@ -79,7 +98,13 @@ export default function App() {
         {/* Sector validation caps */}
         <TrustedBy />
 
-        {/* Exclusive NADA Offer Section */}
+        {/* The MotoCore product line */}
+        <ProductStrip />
+
+        {/* Featured product: MotoCore Bike */}
+        <FeaturedBike />
+
+        {/* Early launch offer (Parts, Workshop, Recon-Lite) */}
         <NadaExclusive />
 
         {/* 8-Card Business Management Feature Suite */}
@@ -88,15 +113,21 @@ export default function App() {
         {/* Industry Focus Showcase & Core Benefits checks */}
         <IndustrySection />
 
+        {/* Newest blog posts */}
+        <LatestPosts />
+
+        <HomeFaq />
+
         {/* Priority registration block */}
         <EarlyAccess />
 
         {/* Multi-Branch inquiries form and contacts details */}
         <Contact />
       </main>
+      )}
 
       {/* 3. Global Footer & upper Features Bar alignment */}
-      <Footer />
+      <Footer route={route} />
 
       {/* Interactive overlays & forms */}
       <EarlyAccessModal isOpen={isEarlyAccessOpen} onClose={handleCloseAllModals} />

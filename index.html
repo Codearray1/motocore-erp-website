@@ -3,13 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MotoCore ERP | Driving Automotive Operations Forward</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
-<meta name="description" content="MotoCore ERP is a complete automotive ERP platform for dealerships, workshops, service centers, parts distributors, used vehicle businesses, and automotive enterprises." />
-<meta property="og:title" content="MotoCore ERP | Driving Automotive Operations Forward" />
-<meta property="og:description" content="Complete automotive ERP for dealerships, workshops, service centers, parts distributors, and automotive enterprises." />
-<meta property="og:image" content="/favicon.png" />
-<meta property="og:type" content="website" />
+    <!--seo-head-->
+    <title>MotoCore ERP | Automotive & Bike Showroom Software in Nepal</title>
+    <meta name="description" content="Cloud ERP built in Nepal for bike showrooms, vehicle dealerships, workshops, spare parts distributors and used vehicle businesses. Book a free demo." />
+    <!--/seo-head-->
+    <meta name="theme-color" content="#E30613" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <script>
+      // Apply the saved (or system) theme before first paint so pre-rendered pages don't flash
+      (function () {
+        try {
+          var t = localStorage.getItem("motocore_theme");
+          var dark = t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var d = document.documentElement;
+          d.setAttribute("data-theme", dark ? "dark" : "light");
+          d.classList.toggle("dark", dark);
+        } catch (e) {}
+      })();
+    </script>
     <script>
       // Early robust patch to prevent "Cannot set property 'fetch' of #<Window> which has only a getter"
       (function() {

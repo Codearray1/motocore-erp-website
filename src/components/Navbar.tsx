@@ -1,32 +1,62 @@
 import React, { useState } from "react";
 import { Sun, Moon, Menu, X, ArrowRight } from "lucide-react";
 import Logo from "./Logo";
+import { ProductsMenu, ProductsMenuList } from "./ProductsMenu";
+import type { RouteDef } from "../seo/routes";
 
 interface NavbarProps {
+  route: RouteDef;
   isDarkMode: boolean;
   onToggleTheme: () => void;
   onOpenEarlyAccess: () => void;
 }
 
-export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }: NavbarProps) {
+export default function Navbar({ route, isDarkMode, onToggleTheme, onOpenEarlyAccess }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const openRegisterPage = () => {
     window.open("https://live.motocoreerp.com/register", "_blank");
   };
 
+  const isHome = route.kind === "home";
+  const ne = route.lang === "ne";
+  const homeHref = ne ? "/ne" : "/";
+  // Home-page sections are linked as /#section from the landing pages; every page has its own #contact
+  const section = (hash: string) => (isHome || hash === "#contact" ? hash : `/${hash}`);
   const navLinks = [
-    { label: "Offer", href: "#nada-exclusive" },
-    { label: "Features", href: "#features" },
-    { label: "About", href: "#solutions" },
-    { label: "Contact", href: "#contact" }
+    { label: ne ? "अफर" : "Offer", href: ne ? "/#early-launch-offer" : section("#early-launch-offer") },
+    { label: ne ? "ब्लग" : "Blog", href: "/blog" },
+    { label: ne ? "सम्पर्क" : "Contact", href: "#contact" }
   ];
+  // Same page in the other language; pages without a translation (privacy, terms, blog) switch to that language's home
+  const langHref = { en: route.alternates?.en ?? "/", ne: route.alternates?.ne ?? "/ne" };
+  const langSwitch = (compact: boolean) => (
+    <div role="group" aria-label={ne ? "भाषा" : "Language"} className="inline-flex shrink-0 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] p-1 text-xs font-bold">
+      {([["en", compact ? "EN" : "English"], ["ne", "नेपाली"]] as const).map(([l, label]) => {
+        const active = route.lang === l;
+        return (
+          <a
+            key={l}
+            href={langHref[l]}
+            hrefLang={l}
+            lang={l}
+            aria-current={active ? "page" : undefined}
+            aria-label={l === "en" ? "English" : "नेपाली"}
+            className={`rounded-lg px-2.5 py-1.5 transition-colors ${active ? "bg-brand-red text-white" : "text-[var(--text)] opacity-80 hover:opacity-100"}`}
+          >
+            {label}
+          </a>
+        );
+      })}
+    </div>
+  );
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setIsMobileMenuOpen(false);
+    if (!href.startsWith("#")) return; // a page link: let the browser navigate
     const targetElement = document.querySelector(href);
     if (targetElement) {
+      e.preventDefault();
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
@@ -47,7 +77,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
         <div className="max-w-7xl mx-auto px-6 h-19 flex items-center justify-between">
           {/* LOGO: Pure high-precision vector SVG replacing broken external image URL */}
           <div className="flex items-center">
-            <a href="#" className="flex items-center" onClick={(e) => handleLinkClick(e, "#top")} aria-label="MotoCore ERP Homepage">
+            <a href={homeHref} className="flex items-center" onClick={(e) => { if (isHome) handleLinkClick(e, "#top"); }} aria-label="MotoCore ERP Homepage">
               <div className="transition-transform hover:scale-102 flex items-center">
                 <Logo className="h-20 md:h-24 w-auto object-contain" />
               </div>
@@ -56,6 +86,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
+            <ProductsMenu lang={route.lang} />
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -70,6 +101,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
 
           {/* Utility Actions */}
           <div className="hidden lg:flex items-center space-x-6">
+            {langSwitch(false)}
             {/* Theme Toggle Button */}
             <button
               onClick={onToggleTheme}
@@ -102,21 +134,14 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
           </div>
 
           {/* Mobile Hamburger Menu Toggle */}
-          <div className="flex items-center space-x-4 lg:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
+            {langSwitch(true)}
             <button
               onClick={onToggleTheme}
-              className="inline-flex items-center justify-center h-10 px-3.5 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)]"
-              aria-label="Toggle Theme"
+              className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--border)] text-[var(--text)] transition-all duration-300 border border-[var(--border)]"
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {isDarkMode ? (
-                <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
-                  <span>☀</span> <span>Light</span>
-                </span>
-              ) : (
-                <span className="flex items-center gap-1 font-semibold text-xs tracking-wide">
-                  <span>🌙</span> <span>Dark</span>
-                </span>
-              )}
+              {isDarkMode ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
             </button>
 
             <button
@@ -133,6 +158,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
         {isMobileMenuOpen && (
           <div className="lg:hidden absolute top-28 left-0 w-full bg-[var(--bg)] border-b border-[var(--border)] py-6 px-6 shadow-xl transition-all duration-300 ease-in-out">
             <div className="flex flex-col space-y-4">
+              <ProductsMenuList lang={route.lang} onNavigate={() => setIsMobileMenuOpen(false)} />
               {navLinks.map((link) => (
                 <a
                   key={link.label}
@@ -147,7 +173,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    window.location.href = '/login';
+                    window.location.href = 'https://live.motocoreerp.com/';
                   }}
                   className="flex-1 text-center bg-[var(--bg-secondary)] text-[var(--text)] border border-[var(--border)] py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-[var(--border)] active:scale-95 transition-all"
                 >
@@ -156,7 +182,7 @@ export default function Navbar({ isDarkMode, onToggleTheme, onOpenEarlyAccess }:
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    window.location.href = '/register';
+                    openRegisterPage();
                   }}
                   className="flex-1 text-center bg-brand-red text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-brand-red/20 active:scale-95 transition-all"
                 >

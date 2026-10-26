@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
 import { INDUSTRY_BENEFITS } from "../data";
+import workshopJobCards from "../assets/products/workshop-job-cards.webp";
 
 export default function IndustrySection() {
   return (
@@ -22,20 +23,23 @@ export default function IndustrySection() {
               className="relative border border-[var(--border)] rounded-[2rem] overflow-hidden shadow-2xl"
             >
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHjIqHPiI5xPfg731CLM97SkCf2Ur3jqI_ssTz0wsvYCZ6uvyF3S3--1yaOJ6LZPeYSwsIaq056qEUnYKNz-UuIwRhs1pxohyxJT215ac6kNjvsfzgIYabbvc-_7Vy_m1Rjsqo9pza-4gnHTXDeHrwNnwhis3FtfdU8L7rKvbhHMf5LUpsKLE2FGrLzdR1WobEEBlVGfT6scc0Ne3ObmCgy_1DfHwmO6_moQleQdIXC1-Irt6ZLwxS2Jyq7bt79cXX1WmJkXfV__w"
-                alt="MotoCore ERP Glass Workshop & Showroom HQ"
-                className="w-full h-[32rem] object-cover hover:scale-105 duration-700 transition-transform select-none"
-                referrerPolicy="no-referrer"
+                src={workshopJobCards}
+                alt="MotoCore Workshop job cards by stage, from inspection to quality check"
+                width={1600}
+                height={900}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-auto object-contain bg-white select-none"
               />
               
               {/* Premium overlay badge representing modern cloud infrastructure */}
-              <div className="absolute bottom-6 left-6 right-6 bg-brand-black/80 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex items-center justify-between">
+              <div className="absolute bottom-6 left-6 right-6 bg-black/75 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] uppercase font-bold tracking-widest text-[#E30613] mb-1">
-                    DEPLOYMENT TARGET
+                    One platform
                   </p>
                   <p className="text-sm font-bold text-white tracking-tight">
-                    On-Premise & Cloud Hybrid
+                    Showroom · parts · workshop · used vehicles
                   </p>
                 </div>
                 <div className="flex items-center space-x-1">

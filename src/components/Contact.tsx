@@ -12,6 +12,7 @@ export default function Contact() {
   });
   
   const [isSent, setIsSent] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const [errorMess, setErrorMess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -84,7 +85,7 @@ export default function Contact() {
               <div className="h-1 w-16 bg-brand-red rounded"></div>
               
               <p className="text-sm md:text-base text-[var(--text)] opacity-70 leading-relaxed max-w-sm">
-                Have questions about custom integrations or deployment speeds? Reach out directly to our Lalitpur support team.
+                Questions about MotoCore, a demo or the early launch offer? Reach our team in Lalitpur directly.
               </p>
             </div>
 
@@ -127,17 +128,29 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Headquarter City Image */}
-            <div className="relative rounded-2xl overflow-hidden h-40 border border-[var(--border)] shadow-md">
-               <iframe 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.036205783378!2d85.30035305032845!3d27.68527583696681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19002114198f%3A0x52f208002bfa067!2sCodesc%20Nepal%20Pvt%20Ltd!5e0!3m2!1sen!2snp!4v1787222188007!5m2!1sen!2snp" 
-                 className="w-full h-full " 
-                 style={{ border: 0 }} 
-                 allowFullScreen={false} 
-                 loading="lazy" 
-                 referrerPolicy="strict-origin-when-cross-origin"
-               ></iframe>
-             </div>
+            {/* Office map: loaded only when asked for (Google Maps is heavy) */}
+            <div className="relative rounded-2xl overflow-hidden h-40 border border-[var(--border)] shadow-md bg-[var(--bg-secondary)]">
+              {showMap ? (
+                <iframe
+                  title="MotoCore office location in Sanepa, Lalitpur on Google Maps"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.036205783378!2d85.30035305032845!3d27.68527583696681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19002114198f%3A0x52f208002bfa067!2sCodesc%20Nepal%20Pvt%20Ltd!5e0!3m2!1sen!2snp!4v1787222188007!5m2!1sen!2snp"
+                  className="w-full h-full"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                ></iframe>
+              ) : (
+                <div className="flex h-full flex-col items-center justify-center gap-2 text-sm">
+                  <button type="button" onClick={() => setShowMap(true)} className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-4 py-2 font-semibold hover:border-brand-red">
+                    Show map
+                  </button>
+                  <a href="https://www.google.com/maps/search/?api=1&query=27.685276,85.300353" target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-brand-red hover:underline">
+                    Open in Google Maps
+                  </a>
+                </div>
+              )}
+            </div>
 
           </div>
 
@@ -156,12 +169,13 @@ export default function Contact() {
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase">
+                      <label htmlFor="contact-name" className="text-xs font-bold tracking-wider text-[var(--text)] opacity-75 uppercase">
                         Full Name <span className="text-brand-red">*</span>
                       </label>
                       <input
                         type="text"
                         required
+                        id="contact-name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="John Doe"
@@ -170,12 +184,13 @@ export default function Contact() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase">
+                      <label htmlFor="contact-email" className="text-xs font-bold tracking-wider text-[var(--text)] opacity-75 uppercase">
                         Business Email <span className="text-brand-red">*</span>
                       </label>
                       <input
                         type="email"
                         required
+                        id="contact-email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="john@company.com"
@@ -186,12 +201,13 @@ export default function Contact() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase">
+                      <label htmlFor="contact-phone" className="text-xs font-bold tracking-wider text-[var(--text)] opacity-75 uppercase">
                         Phone Number <span className="text-brand-red">*</span>
                       </label>
                       <input
                         type="tel"
                         required
+                        id="contact-phone"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+977 9863473651"
@@ -200,14 +216,16 @@ export default function Contact() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase">
+                      <label htmlFor="contact-type" className="text-xs font-bold tracking-wider text-[var(--text)] opacity-75 uppercase">
                         Primary Business Type
                       </label>
                       <select
+                        id="contact-type"
                         value={formData.companySize}
                         onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
                         className="w-full bg-[var(--card)] border border-[var(--border)] rounded-xl px-4 py-3.5 text-sm font-bold text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-brand-red/50 cursor-pointer"
                       >
+                        <option value="bike_showroom">Bike / EV Showroom</option>
                         <option value="dealership">Vehicle Dealership</option>
                         <option value="workshop">Service Workshop</option>
                         <option value="distributor">Parts Distributor</option>
@@ -217,14 +235,15 @@ export default function Contact() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold tracking-wider text-[var(--text)] opacity-60 uppercase">
+                    <label htmlFor="contact-message" className="text-xs font-bold tracking-wider text-[var(--text)] opacity-75 uppercase">
                       Inquiry Details
                     </label>
                     <textarea
                       rows={4}
-                      value={formData.message}
+                      id="contact-message"
+                        value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Tell us about your multi-branch operations..."
+                      placeholder="Tell us about your business and what you would like to see..."
                       className="w-full bg-[var(--card)] border border-[var(--border)] rounded-xl px-4 py-3.5 text-sm font-bold text-[var(--text)] placeholder:text-[var(--text)]/45 focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                     ></textarea>
                   </div>
