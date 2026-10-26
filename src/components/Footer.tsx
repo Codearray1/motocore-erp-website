@@ -4,10 +4,20 @@ import Logo from "./Logo";
 import { SOCIAL, SOLUTION_LABELS, SOLUTION_SLUGS } from "../seo/content";
 import { solutionHref, type RouteDef } from "../seo/routes";
 
+// lucide has no TikTok mark: the logo glyph as an inline icon with the same sizing API
+function TikTok({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M16.6 5.82a4.28 4.28 0 0 1-1.04-2.82h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.77.12V9.79a5.7 5.7 0 1 0 4.91 5.64V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.28 4.28 0 0 1-3.26-1.48z" />
+    </svg>
+  );
+}
+
 const SOCIAL_LINKS = [
   { href: SOCIAL.facebook, label: "Facebook", Icon: Facebook },
   { href: SOCIAL.instagram, label: "Instagram", Icon: Instagram },
   { href: SOCIAL.linkedin, label: "LinkedIn", Icon: Linkedin },
+  { href: SOCIAL.tiktok, label: "TikTok", Icon: TikTok },
 ].filter((l) => l.href);
 
 export default function Footer({ route }: { route: RouteDef }) {

@@ -1,4 +1,4 @@
-import { HOME_FAQ, PRODUCTS, SITE } from "./content";
+import { HOME_FAQ, PRODUCTS, SITE, SOCIAL } from "./content";
 import { absolute, solutionHref, type RouteDef } from "./routes";
 import { BLOG, POSTS } from "./blog";
 
@@ -19,6 +19,7 @@ const ORGANIZATION = {
   telephone: SITE.phone,
   address: { "@type": "PostalAddress", streetAddress: "Sanepa", addressLocality: "Lalitpur", addressCountry: SITE.country },
   areaServed: ["NP", "IN", "BD"],
+  sameAs: Object.values(SOCIAL).filter(Boolean),
 };
 
 /** Everything that goes in <head> for one route (title, description, canonical, hreflang, Open Graph, JSON-LD). */

@@ -91,7 +91,12 @@ export const SITE = {
 };
 
 /** Official social profiles. An entry left empty is not shown (no placeholder links). */
-export const SOCIAL: { facebook: string; instagram: string; linkedin: string } = { facebook: "", instagram: "", linkedin: "" };
+export const SOCIAL: { facebook: string; instagram: string; linkedin: string; tiktok: string } = {
+  facebook: "https://www.facebook.com/profile.php?id=61590382095428",
+  instagram: "https://www.instagram.com/motocoreerp/",
+  linkedin: "https://www.linkedin.com/company/131154156/",
+  tiktok: "https://www.tiktok.com/@motocore.erp",
+};
 
 const demoEn: Cta = { label: "Book a free demo", href: "#contact" };
 const demoNe: Cta = { label: "निःशुल्क डेमो बुक गर्नुहोस्", href: "#contact" };
